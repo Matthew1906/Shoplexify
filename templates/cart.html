@@ -11,7 +11,7 @@
         <hr>
         <div class="col cart-contents">
             <div>
-            {% if orders.count()!=0 %} 
+            {% if orders.count()==0 %} 
             <h2 class='no-products'>There are no orders!</h2>
             {% endif %}
             {% for order in orders %} 
