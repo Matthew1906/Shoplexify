@@ -11,6 +11,9 @@
         <hr>
         <div class="col cart-contents">
             <div>
+            {% if orders == [] %} 
+            <h2 class='no-products'>There are no orders!</h2>
+            {% endif %}
             {% for order in orders %} 
                 <div class="cart-item">
                     <img src="{{order.product.image_url}}" alt="{{order.product.name}}" class='cart-img'>

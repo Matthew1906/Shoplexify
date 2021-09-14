@@ -9,6 +9,9 @@
         {% if purpose == 'show_all' %} 
         <h2 class='text-center margin-50'>All {{current_user.name}}'s Transaction</h2> 
         <div class="col">
+        {% if transactions == [] %} 
+        <h2 class='no-products'>There are no transactions!</h2>
+        {% endif %}
         {% for transaction in transactions %} 
             <div class="horizontal-padding-50">
                 <hr>

@@ -2,6 +2,8 @@
 
 body{
     position:relative;
+    min-height:100vh;
+    height:auto;
 }
 
 /* Navbar*/
