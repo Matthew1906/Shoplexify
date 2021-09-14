@@ -38,6 +38,32 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize Database
 db.init_app(app)
+with app.app_context():
+    db.create_all()    
+    new_category = Category(name='Automotive')
+    db.session.add(new_category)
+    new_category = Category(name='ArtsAndCrafts')
+    db.session.add(new_category)
+    new_category = Category(name='Books')
+    db.session.add(new_category)
+    new_category = Category(name='Clothing')
+    db.session.add(new_category)
+    new_category = Category(name='Electronics')
+    db.session.add(new_category)
+    new_category = Category(name='Food')
+    db.session.add(new_category)
+    new_category = Category(name='HealthAndBeauty')
+    db.session.add(new_category)
+    new_category = Category(name='HomeAndGarden')
+    db.session.add(new_category)
+    new_category = Category(name='Office')
+    db.session.add(new_category)
+    new_category = Category(name='SportsAndOutdoor')
+    db.session.add(new_category)
+    db.session.commit()
+    df = pd.read_csv('./init/products.csv', delimiter=';')
+    df.to_sql(name='products', con=db.engine, if_exists='append', index=False)
+
 # Paste code from init.txt here
 
 # Default loading user function
