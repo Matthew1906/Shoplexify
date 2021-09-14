@@ -19,7 +19,7 @@ import pandas as pd # Initialize Products
 load_dotenv()
 
 # Configure Locale
-setlocale(LC_ALL, 'IND')
+setlocale(LC_ALL, 'id_ID.utf8')
 
 # Create App
 app = Flask(__name__)
