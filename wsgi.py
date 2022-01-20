@@ -1,4 +1,6 @@
 from onlineShop import create_app
+from os import environ
 
 app = create_app()
-app.run(host='0.0.0.0', port=5000)
+port = int(environ.get('PORT', 5000))
+app.run(host='0.0.0.0', port=port)
