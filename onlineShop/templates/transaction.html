@@ -22,7 +22,7 @@
                     {% else %}
                     <h6>Status: {{transaction.delivery_status}}</h6>
                     {% endif %}
-                    <a href="{{url_for('get_transaction_history', transaction_id=transaction.id, user_id = current_user.id)}}" class = 'btn btn-info'>Check it out</a>
+                    <a href="{{url_for('transaction.get_transaction_history', transaction_id=transaction.id, user_id = current_user.id)}}" class = 'btn btn-info'>Check it out</a>
                 </div>
             {% endfor %}
         </div>
@@ -54,7 +54,7 @@
                     <p class='card-text'>Delivery Status: {{transaction.delivery_status}}</p>
                     <hr>
                     {% if transaction.delivery_status == 'Unsent' %}
-                        <a href="{{url_for('product_delivered', user_id=current_user.id, transaction_id=transaction.id)}}" class='btn btn-primary'>Reached the destination</a>
+                        <a href="{{url_for('transaction.product_delivered', user_id=current_user.id, transaction_id=transaction.id)}}" class='btn btn-primary'>Reached the destination</a>
                     {% endif %}
                 </div>
             </div>  

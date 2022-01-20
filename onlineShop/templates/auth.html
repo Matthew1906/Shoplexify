@@ -26,7 +26,7 @@
                 Already
                 {% endif %}
                 have an Account? 
-                <a href="{% if purpose == 'login' %} {{url_for('register')}} {% else %} {{url_for('login')}} {% endif %}" class='link-primary link'>
+                <a href="{% if purpose == 'login' %} {{url_for('auth.register')}} {% else %} {{url_for('auth.login')}} {% endif %}" class='link-primary link'>
                     {% if purpose == 'login' %}
                     Register
                     {% else %}
@@ -42,7 +42,7 @@
         </div>
     </div>
     <div class='row'>
-        <form action="{% if purpose == 'login' %} {{url_for('login')}} {% else %} {{url_for('register')}} {% endif %}" method="post" novalidate>
+        <form action="{% if purpose == 'login' %} {{url_for('auth.login')}} {% else %} {{url_for('auth.register')}} {% endif %}" method="post" novalidate>
             {{form.csrf_token}}
             <div class="form-group">
                 <label class="control-label">{{form.email.label}}</label>

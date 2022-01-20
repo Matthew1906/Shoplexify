@@ -1,1 +1,1 @@
-web: gunicorn onlineShop:app --preload
+web: gunicorn main:app --preload

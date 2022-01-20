@@ -21,9 +21,9 @@
                         <h4>{{order.product.name}}</h4>
                         <p>Price: {{order.product.price}}</p>
                         <p class='btn-group'>
-                            <a href="{{url_for('decrement_product_quantity', user_id=current_user.id, product_id = order.product_id)}}" class='btn btn-light'>-</a>
+                            <a href="{{url_for('cart.decrement_product_quantity', user_id=current_user.id, product_id = order.product_id)}}" class='btn btn-light'>-</a>
                             <span class='btn btn-light'>{{order.quantity}}</span>
-                            <a href="{{url_for('increment_product_quantity', user_id=current_user.id, product_id = order.product_id)}}" class='btn btn-light {% if order.product.stock <= 0%} disabled {% endif %}'>+</a>
+                            <a href="{{url_for('cart.increment_product_quantity', user_id=current_user.id, product_id = order.product_id)}}" class='btn btn-light {% if order.product.stock <= 0%} disabled {% endif %}'>+</a>
                         </p>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                     <h5 class="card-title">Cart Summary</h5>
                     <p class="card-text">Total Price ({{orders | get_order_count}}): {{orders | get_current_sum}}</p>
                     <hr>
-                    <a href="{{url_for('checkout', user_id=current_user.id)}}" class = 'btn btn-primary'>Checkout</a>
+                    <a href="{{url_for('transaction.checkout', user_id=current_user.id)}}" class = 'btn btn-primary'>Checkout</a>
                 </div>
             </div>  
             {% endif %}
