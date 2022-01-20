@@ -49,7 +49,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
 
     from .models import Category, Order, Product, ProductCategory, ProductReview, Transaction, TransactionDetail, User
-    create_database(app)
+    # create_database(app)
 
     # Login Manager
     login_manager = LoginManager()
