@@ -68,14 +68,13 @@ def update_product(id:int):
 @product_manager.route('/products/<int:id>', methods=['GET', 'POST'])
 def get_product(id:int):
     product = Product.query.filter_by(id=id).first()
-    cart_form = CartForm(product.stock)
+    cart_form = CartForm(count=1, limit=product.stock)
     review_form = ReviewForm()
     if current_user.is_authenticated and review_form.validate_on_submit():
         find_product_review = ProductReview.query.filter_by(product=product, user=current_user).first()
         if find_product_review:
-            with app.app_context():
-                db.session.delete(find_product_review)
-                db.session.commit()
+            db.session.delete(find_product_review)
+            db.session.commit()
         new_product_review = ProductReview(
             user = current_user,
             product = product,
