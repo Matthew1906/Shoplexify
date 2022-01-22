@@ -1,8 +1,7 @@
 from flask import Blueprint, redirect, render_template, request, session, url_for
-from flask_login import current_user, login_required
+from flask_login import current_user
 from .. import db
 from ..models import Order, Product
-from ..utils import member_only
 
 cart = Blueprint('cart', __name__)
 
