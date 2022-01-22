@@ -7,18 +7,11 @@
 {% block content %} 
 <main>
     <div class='row'>
-        <h2 class='text-center margin-50'>
-            {% if current_user.is_authenticated %}
-                {{current_user.name}}'s Cart
-            {% else %}
-                Your cart
-            {% endif %}
-
-        </h2>
+        <h2 class='text-center margin-50'>{{current_user.name}}'s Cart</h2>
         <hr>
         <div class="col cart-contents">
             <div>
-            {% if orders | get_length == 0 %}
+            {% if orders.count()== 0 %}
                 <h2 class='no-products'>There are no orders!</h2>
             {% endif %}
             {% for order in orders %} 
@@ -28,25 +21,25 @@
                         <h4>{{order.product.name}}</h4>
                         <p>Price: {{order.product.price}}</p>
                         <p class='btn-group'>
-                            <a href="{{url_for('cart.decrement_product_quantity', product_id = order.product.id)}}" class='btn btn-light'>-</a>
+                            <a href="{{url_for('cart.decrement_product_quantity', user_id = current_user.id, product_id = order.product.id)}}" class='btn btn-light'>-</a>
                             <span class='btn btn-light'>{{order.quantity}}</span>
-                            <a href="{{url_for('cart.increment_product_quantity', product_id = order.product.id)}}" class='btn btn-light {% if order.product.stock <= 0 %} disabled {% endif %}'>+</a>
+                            <a href="{{url_for('cart.increment_product_quantity', user_id = current_user.id, product_id = order.product.id)}}" class='btn btn-light {% if order.product.stock <= 0 %} disabled {% endif %}'>+</a>
                         </p>
+                        <a href="{{url_for('cart.delete_from_cart', user_id=current_user.id, product_id=order.product.id)}}" class='btn btn-danger'>X</a>
                     </div>
                 </div>
             {% endfor %}
             </div>
-            {% if orders | get_length !=0 %}
+            {% if orders.count() !=0 %}
             <div class="card cart-summary">
                 <div class="card-body">
                     <h5 class="card-title">Cart Summary</h5>
                     <p class="card-text">Total Price ({{orders | get_order_count}}): {{orders | get_current_sum}}</p>
                     <hr>
-                    {% if current_user.is_authenticated %}
+                    <div class="flex">
                         <a href="{{url_for('transaction.checkout', user_id=current_user.id)}}" class = 'btn btn-primary'>Checkout</a>
-                    {% else %}
-                        <a href="{{url_for('auth.register')}}" class = 'btn btn-primary' onclick="notRegistered()">Checkout</a>
-                    {% endif %}
+                        <a href="{{url_for('cart.clear_cart', user_id=current_user.id)}}" class='btn btn-danger'>Clear</a>
+                    </div>
                 </div>
             </div>  
             {% endif %}

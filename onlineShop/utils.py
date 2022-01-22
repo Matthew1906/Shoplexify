@@ -62,10 +62,7 @@ def get_number_of_reviews(reviews):
 @utils.app_template_filter('get_order_count')
 def get_order_count(orders):
     '''Get number of products in total (from Order object)'''
-    if type(orders) == list:
-        return sum([order.get('quantity') for order in orders])
-    else:
-        return sum([order.quantity for order in orders])
+    return sum([order.quantity for order in orders])
 
 @utils.app_template_filter('get_products_count')
 def get_products_count(details):
@@ -75,10 +72,7 @@ def get_products_count(details):
 @utils.app_template_filter('get_current_sum')
 def get_current_sum(orders):
     '''Get Temporary Total Cost in Cart (from Order object)'''
-    if type(orders) == list:
-        return currency(float(sum([order.get('product').price * order.get('quantity') for order in orders])))
-    else:
-        return currency(float(sum([order.product.price * order.quantity for order in orders])))
+    return currency(float(sum([order.product.price * order.quantity for order in orders])))
 
 @utils.app_template_filter('get_price_sum')
 def get_price_sum(transactions):
@@ -89,11 +83,4 @@ def get_price_sum(transactions):
 def get_total_payment(info):
     '''Get Total Cost + Delivery Cost in currency format (from Transaction Object)'''
     return currency(float(info.delivery_cost+sum([transaction.price * transaction.quantity for transaction in info.details])))
-
-@utils.app_template_filter('get_length')
-def get_length(orders):
-    '''Get length of orders'''
-    if type(orders)==list:
-        return len(orders)
-    else:
-        return orders.count()
+    
