@@ -8,11 +8,11 @@
 #### My Approach toward this project
 1. Create Flowchart and ERD, design tables
 2. Build database, Create basic layout of website(navbar and footer), add categories to the database (save the block of code into ./init/init.txt)
-3. User Authentication (login, register, logout) and Mock data for products (taken from amazon, with a little tinkering) -> saved to .csv
-4. Insert Mock Data into Database, Add product management functionality (Add new products and Update products), add Admin only decorator, and implemented template filter 
+3. User Authentication (login, register, logout) and Mock data for products (taken from amazon, with a little tinkering) -> saved to csv file
+4. Insert Mock Data into Database, Add product management functionality (Add new products and Update products), add decorators, and implemented template filters
 5. Add to Cart function, Pagination, and Search
 6. Transaction and Checkout
-7. Add Product Review Section, Slightly fix responsiveness
+7. Add Product Review, Slightly fix responsiveness
 8. Restructuring the Application using Blueprints
 9. Add session feature so that user can add products to cart without login
 10. Deploy the app to Heroku
