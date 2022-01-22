@@ -12,7 +12,7 @@
 4. Insert Mock Data into Database, Add product management functionality (Add new products and Update products), add Admin only decorator, and implemented template filter 
 5. Add to Cart function, Pagination, and Search
 6. Transaction and Checkout
-7. Add Product Review Section, Slightly fix responsiveness
+7. Add Product Review, Slightly fix responsiveness
 8. Restructuring the Application using Blueprints
 9. Deploy the app to Heroku
 
