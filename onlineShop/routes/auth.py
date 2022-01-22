@@ -1,9 +1,9 @@
 from datetime import datetime
-from flask import Blueprint, flash, render_template, redirect, request, url_for
+from flask import Blueprint, flash, render_template, redirect, request, session, url_for
 from flask_login import login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from .. import db
-from ..models import User
+from ..models import Order, Product, User
 from ..forms import RegisterForm, LoginForm
 
 auth = Blueprint('auth', __name__)
@@ -26,6 +26,17 @@ def register():
             )
             db.session.add(new_user)
             db.session.commit()
+            if session.get('orders') != None:
+                for order in session['orders']:
+                    new_order = Order(
+                        user = new_user,
+                        product = Product.query.filter_by(id=order['product']).first(),
+                        quantity = order['quantity']
+                    )
+                    db.session.add(new_order)
+                    db.session.commit()
+                session.pop('orders', None)
+                flash('Your orders have been added to cart!')
         else:
             flash('User already exists, Please login!')
         return redirect(url_for('auth.login'))
@@ -35,13 +46,13 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        print("Login")
         find_user = User.query.filter_by(email=request.form.get('email')).first()
         if find_user is None:
             flash("User doesn't exist! Please register!")
             return redirect(url_for('auth.register'))
         elif check_password_hash(find_user.password, request.form.get('password')):
             login_user(find_user)
+            session.pop('orders', None)
             return redirect(url_for('views.home'))
         else:
             flash('Wrong email or password!')

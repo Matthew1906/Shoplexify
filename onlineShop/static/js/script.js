@@ -1,5 +1,5 @@
-function notLoggedIn(){
-    alert("You need to login to add to cart!")
+function notRegistered(){
+    alert("You need to register an account to checkout!")
 }
 
 function addedToCart(){
