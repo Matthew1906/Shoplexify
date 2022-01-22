@@ -3,7 +3,7 @@
 #### This is a simple online shop, created using Flask as the Backend Framework. This project is a part of my 100 Days of Python project.
 
 #### This project supposedly includes payment processing, but the suggested api don't really include my country and it kinda felt like fraud to me, using sandbox doesn't seem to achieve anything
-#### Please take note that this website is not responsive at all:v, This project's purpose is to practice by skills in backend using flask. Furthermore, I kinda have to speedrun this project
+#### Please take note that this website is not responsive at all:v, This project's purpose is to practice by skills in backend using flask. I'll improve it from time to time tho.
 
 #### My Approach toward this project
 1. Create Flowchart and ERD, design tables
@@ -14,7 +14,8 @@
 6. Transaction and Checkout
 7. Add Product Review Section, Slightly fix responsiveness
 8. Restructuring the Application using Blueprints
-9. Deploy the app to Heroku
+9. Add session feature so that user can add products to cart without login
+10. Deploy the app to Heroku
 
 #### Steps of Deployment:
 1. Clone this repository
