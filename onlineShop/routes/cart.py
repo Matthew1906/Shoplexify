@@ -26,7 +26,14 @@ def add_to_cart(product_id):
             orders = session['orders']
         else:
             orders = []
-        orders.append({'product':product.id, 'quantity':int(request.form.get('count'))})
+        is_new = True
+        for order in orders:
+            if order['product'] == product.id:
+                order['quantity'] += int(request.form.get('count'))
+                is_new = False
+                break
+        if is_new:
+            orders.append({'product':product.id, 'quantity':int(request.form.get('count'))})
         session['orders'] = orders
     product.stock-=int(request.form.get('count'))
     db.session.commit()
