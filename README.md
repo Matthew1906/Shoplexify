@@ -25,3 +25,8 @@
 5. When first deploying the app, don't forget to uncomment the create_database(app) call in __init__.py : create_app()
 6. Lastly, don't forget to setup SECRET_KEY from .env file so that the program can start
 7. Start the application by running the code, and then go to http://127.0.0.1:5000/
+
+#### Todo:
+- Clear cart function (cart.py, cart.html)
+- Remove order from cart (cart.py, cart.html)
+- Improve frontend

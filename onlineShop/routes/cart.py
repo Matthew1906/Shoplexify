@@ -11,14 +11,16 @@ def add_to_cart(product_id):
     if int(request.form.get('count')) > product.stock:
         return redirect(url_for('views.home'))
     if current_user.is_authenticated and current_user.id !=1:
-        new_order = Order(
-            user= current_user,
-            product = product,
-            quantity = int(request.form.get('count'))
-        )
-        product.stock-=new_order.quantity
-        db.session.add(new_order)
-        db.session.commit()
+        order = Order.query.filter_by(user_id=current_user.id, product_id=product_id).first()
+        if order != None:
+            order.quantity+=int(request.form.get('count'))
+        else:
+            new_order = Order(
+                user= current_user,
+                product = product,
+                quantity = int(request.form.get('count'))
+            )
+            db.session.add(new_order)
     else:
         if 'orders' in session:
             orders = session['orders']
@@ -26,6 +28,8 @@ def add_to_cart(product_id):
             orders = []
         orders.append({'product':product.id, 'quantity':int(request.form.get('count'))})
         session['orders'] = orders
+    product.stock-=int(request.form.get('count'))
+    db.session.commit()
     return redirect(url_for('views.home'))
 
 @cart.route('/cart')
@@ -44,26 +48,38 @@ def get_cart():
 def increment_product_quantity(product_id):
     product = Product.query.filter_by(id=product_id).first()
     if current_user.is_authenticated and current_user.id!=1:
-        order = Order.query.filter_by(user_id=user_id, product_id=product_id).first()
+        order = Order.query.filter_by(user_id=current_user.id, product_id=product_id).first()
         order.quantity+=1
-        product.stock-=1
-        db.session.commit()
     else:
-        order = session['orders'][[idx for idx, vals in enumerate(session['orders'])  if vals['product'].id == product_id][0]]
-        order['quantity'] += 1
-        product.stock-=1
+        orders = session['orders']
+        for order in orders:
+            if order['product']==product_id:
+                res_order = order
+                break
+        res_order['quantity'] += 1
+        session['orders'] = orders
+    product.stock-=1
+    db.session.commit()
     return redirect(url_for('cart.get_cart'))
 
 @cart.route('/cart/decrement_quantity/<int:product_id>')
 def decrement_product_quantity(product_id):
     product = Product.query.filter_by(id=product_id).first()
     if current_user.is_authenticated and current_user.id!=1:
-        order = Order.query.filter_by(user_id=user_id, product_id=product_id).first()
+        order = Order.query.filter_by(user_id=current_user.id, product_id=product_id).first()
         order.quantity-=1
-        product.stock+=1
-        db.session.commit()
+        if order.quantity<=0:
+            db.session.delete(order)
     else:
-        order = session['orders'][[idx for idx, vals in enumerate(session['orders'])  if vals['product'].id == product_id][0]]
-        order['quantity'] -= 1
-        product.stock+=1
+        orders = session['orders']
+        for order in orders:
+            if order['product']==product_id:
+                res_order = order
+                break
+        res_order['quantity'] -= 1
+        if res_order['quantity']<=0:
+            orders.remove(res_order)
+        session['orders'] = orders
+    product.stock+=1
+    db.session.commit()
     return redirect(url_for('cart.get_cart'))
