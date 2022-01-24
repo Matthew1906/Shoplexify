@@ -19,5 +19,5 @@ def get_by_category(id:int, page=1):
 @views.route('/search/<int:page>')
 def search_product(page=1):
     query = request.args.get('search')
-    products = Product.query.filter(Product.name.like(f'%{query}%')).paginate(page,9)
+    products = Product.query.filter(Product.name.ilike(f'%{query}%')).paginate(page,9)
     return render_template('index.html', products= products)
