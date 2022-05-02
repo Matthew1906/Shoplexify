@@ -42,7 +42,7 @@
                             {% if current_user.id != 1 %}
                             <form id = 'cart_form' action="{% if current_user.is_authenticated %}{{url_for('cart.add_to_cart', user_id=current_user.id, product_id=product.id)}}{% else %}{{url_for('auth.login', prompt=True)}}{% endif %}" method="post">
                                 {{cart_form.csrf_token}} 
-                                {{cart_form.count()}}
+                                {{cart_form.count(class='mx-2')}}
                                 <button type = 'submit' class = 'btn btn-primary' onclick="{% if current_user.is_authenticated %}addedToCart();{% endif %}">Add to Cart</button>
                             </form>
                             {% endif %}

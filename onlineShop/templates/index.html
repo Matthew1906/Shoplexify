@@ -13,7 +13,7 @@
         <h2 class=''>There are no products!</h2>
       {% else %}
         {% for product in products.items %} 
-        <div class="card col-sm-4 m-md-2" style="width: 18rem;">
+        <div class="card col-sm-4 m-4" style="width: 18rem;">
               <img src="{{product.image_url}}" class="img-16" alt="{{product.name}}">
               <div class="card-body">
                   <h5 class="card-title">{{product.name}}</h5>
