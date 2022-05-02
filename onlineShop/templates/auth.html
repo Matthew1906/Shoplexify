@@ -37,13 +37,13 @@
             </h5>
             {% with messages = get_flashed_messages() %}
                 {% if messages: %}
-                    <p class='text-danger'>{{messages[0]}}</p>
+                    <p class='{% if "head" in messages[0] %} text-success {% else %} text-danger {% endif %}'>{{messages[0]}}</p>
                 {% endif %}
             {% endwith %}     
         </div>
     </div>
     <div class='row mb-0'>
-        <form action="{% if purpose == 'login' %} {{url_for('auth.login')}} {% else %} {{url_for('auth.register')}} {% endif %}" method="post" novalidate class="mb-0">
+        <form action="{% if purpose == 'login' %} {{url_for('auth.login')}} {% else %} {{url_for('auth.register')}} {% endif %}" method="post" class="mb-0">
             {{form.csrf_token}}
             <div class="form-group">
                 <label class="control-label">{{form.email.label}}</label>
