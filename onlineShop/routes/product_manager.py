@@ -33,7 +33,7 @@ def add_product():
             return redirect(url_for('views.home'))
     return render_template('product_manager.html', purpose = 'add', form = form)
 
-@product_manager.route('/products/update/<int:id>', methods=['GET', 'POST'])
+@product_manager.route('/products/<int:id>/update', methods=['GET', 'POST'])
 @admin_only
 def update_product(id:int):
     product = Product.query.filter_by(id=id).first()

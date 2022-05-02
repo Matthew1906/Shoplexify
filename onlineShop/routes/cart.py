@@ -6,7 +6,7 @@ from ..utils import member_only
 
 cart = Blueprint('cart', __name__)
 
-@cart.route('/cart/<int:user_id>/add/<int:product_id>', methods=['POST'])
+@cart.route('/cart/<int:user_id>/products/<int:product_id>/add', methods=['POST'])
 @login_required
 @member_only
 def add_to_cart(user_id, product_id):
@@ -28,7 +28,7 @@ def add_to_cart(user_id, product_id):
     db.session.commit()
     return redirect(url_for('views.home'))
 
-@cart.route('/cart/<int:user_id>/delete/<int:product_id>')
+@cart.route('/cart/<int:user_id>/products/<int:product_id>/delete')
 @login_required
 @member_only
 def delete_from_cart(user_id, product_id):
@@ -60,7 +60,7 @@ def clear_cart(user_id):
     db.session.commit()
     return redirect(url_for('views.home'))
 
-@cart.route('/cart/<int:user_id>/increment_quantity/<int:product_id>')
+@cart.route('/cart/<int:user_id>/products/<int:product_id>/increment')
 def increment_product_quantity(user_id, product_id):
     '''Increase product quantity in user's order'''
     product = Product.query.filter_by(id=product_id).first()
@@ -70,7 +70,7 @@ def increment_product_quantity(user_id, product_id):
     db.session.commit()
     return redirect(url_for('cart.get_cart', user_id=user_id))
 
-@cart.route('/cart/<int:user_id>/decrement_quantity/<int:product_id>')
+@cart.route('/cart/<int:user_id>/products/<int:product_id>/decrement')
 def decrement_product_quantity(user_id, product_id):
     '''Decrease product quantity in user's order'''
     product = Product.query.filter_by(id=product_id).first()

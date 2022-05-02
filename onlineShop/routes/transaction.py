@@ -54,7 +54,7 @@ def get_all_transactions(user_id):
     transactions = Transaction.query.filter_by(user_id=user_id)
     return render_template('transaction.html', transactions = transactions, purpose='show_all')
 
-@transaction.route('/history/<int:user_id>/<int:transaction_id>', methods=['GET', 'POST'])
+@transaction.route('/history/<int:user_id>/transactions/<int:transaction_id>', methods=['GET', 'POST'])
 @login_required
 @member_only
 def get_transaction_history(user_id, transaction_id):
@@ -63,7 +63,7 @@ def get_transaction_history(user_id, transaction_id):
     transaction = Transaction.query.filter_by(id=transaction_id).first()
     return render_template('transaction.html', transaction = transaction, purpose='single')
 
-@transaction.route('/history/<int:user_id>/<int:transaction_id>/delivered', methods=['GET', 'POST'])
+@transaction.route('/history/<int:user_id>/transactions/<int:transaction_id>/delivered', methods=['GET', 'POST'])
 @login_required
 @member_only
 def product_delivered(user_id, transaction_id):
