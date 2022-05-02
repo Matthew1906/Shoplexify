@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, abort
 from flask_login import current_user
 from functools import wraps
 from locale import currency

@@ -3,17 +3,19 @@
 {% block title %}
     Transactions
 {% endblock %}
+
 {% block content %}
-<main>
-    <div class='row'>
+<main class="container my-5">
+    <br>
+    <div>
         {% if purpose == 'show_all' %} 
-        <h2 class='text-center margin-50'>All {{current_user.name}}'s Transaction</h2> 
-        <div class="col">
+        <h2 class='text-center'>All of {{current_user.name}}'s Transaction</h2> 
+        <div>
             {% if transactions.count() == 0 %} 
-            <h2 class='no-products'>There are no transactions!</h2>
+            <h2 class='alert-heading text-warning text-center'>There are no transactions!</h2>
             {% endif %}
             {% for transaction in transactions %} 
-                <div class="horizontal-padding-50">
+                <div class="mt-1">
                     <hr>
                     <h5>Date of Transaction: {{transaction.date | format_date }}</h5>
                     <h6>Total Payment: {{transaction | get_total_payment}}</h6>
@@ -27,22 +29,24 @@
             {% endfor %}
         </div>
         {% else %}
-        <h2 class='text-center margin-50'>{{current_user.name}}'s {{transaction.date | format_date }}'s Transaction</h2>
+        <h2 class='text-center'>{{current_user.name}}'s {{transaction.date | format_date }}'s Transaction</h2>
         <hr>
-        <div class="col cart-contents">
-            <div>
+        <div class="row">
+            <div class="col-md-6">
             {% for detail in transaction.details %} 
-                <div class="cart-item">
-                    <img src="{{detail.product.image_url}}" alt="{{detail.product.name}}" class='cart-img'>
-                    <div class='cart-details'>
-                        <h4>{{detail.product.name}}</h4>
-                        <p>Price: {{detail.price | format_currency}}</p> 
-                        <p>Quantity: {{detail.quantity}}</p>
+                <div class="card">
+                    <div class="row g-0">
+                        <img src="{{detail.product.image_url}}" alt="{{detail.product.name}}" class='col-md-6 img-10'>
+                        <div class='card-body col-md-6'>
+                            <h4 class="card-text">{{detail.product.name}}</h4>
+                            <p class="card-text">Price: {{detail.price | format_currency}}</p> 
+                            <p class="card-text">Quantity: {{detail.quantity}}</p>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
             </div>
-            <div class="card transaction-summary">
+            <div class="card col-md-6 align-items-center">
                 <div class="card-body">
                     <h5 class="card-title">Transaction Summary</h5>
                     <p class="card-text">Total Price ({{transaction.details | get_products_count}}): {{transaction.details | get_price_sum}}</p>
@@ -50,8 +54,18 @@
                     <em class="card-text">Total Payment: {{transaction | get_total_payment}}</em>
                     <hr>
                     <p class='card-text'>Payment Method: {{transaction.payment_method}}</p>
-                    <p class='card-text'>Payment Status: {{transaction.payment_status}}</p>
-                    <p class='card-text'>Delivery Status: {{transaction.delivery_status}}</p>
+                    <p class='card-text'>
+                        Payment Status: 
+                        <span class="btn {% if transaction.delivery_status=='Unsent' %} btn-danger {% else %} btn-success {% endif %}">
+                            {{transaction.payment_status}}
+                        </span>
+                    </p>
+                    <p class='card-text'>
+                        Delivery Status: 
+                        <span class="btn {% if transaction.delivery_status=='Unsent' %} btn-warning {% else %} btn-info {% endif %}">
+                            {{transaction.delivery_status}}
+                        </span>
+                    </p>
                     <hr>
                     {% if transaction.delivery_status == 'Unsent' %}
                         <a href="{{url_for('transaction.product_delivered', user_id=current_user.id, transaction_id=transaction.id)}}" class='btn btn-primary'>Reached the destination</a>

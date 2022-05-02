@@ -47,7 +47,7 @@ class CartForm(FlaskForm):
             self.count.widget = NumberInput(min=1, max=limit)
 
 class TransactionForm(FlaskForm):
-    address = StringField('Address', validators=[InputRequired()]) 
+    address = TextAreaField('Address', validators=[InputRequired()]) 
     payment_method = SelectField(
         label = 'Choose Payment Method',
         choices=[
@@ -58,6 +58,6 @@ class TransactionForm(FlaskForm):
     submit = SubmitField("Checkout")
 
 class ReviewForm(FlaskForm):
-    rating = IntegerField('Your Rating', validators=[InputRequired(), NumberRange(min=1, max=5)], widget=NumberInput(min=1, max=5))
+    rating = IntegerField('Your Rating (1-5)', validators=[InputRequired(), NumberRange(min=1, max=5)], widget=NumberInput(min=1, max=5))
     body = TextAreaField('Review', validators=[InputRequired()])
     submit = SubmitField('Submit Review')

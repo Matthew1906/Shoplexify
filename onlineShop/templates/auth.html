@@ -7,26 +7,27 @@
         Register
     {% endif %} 
 {% endblock %}
+
 {% block content %}
-<main class ='container'>
-    <div class="row top-75">
+<main class ='container mt-5 mb-3'>
+    <br>
+    <div class="row mb-0">
         <div class="col">
             <h3>
                 {% if purpose == 'login' %}
                     Log in to your account 
-                    {% else %}
+                {% else %}
                     Register an account
-                    {% endif %} 
-                to purchase items
+                {% endif %} 
             </h3>
             <h5>
                 {% if purpose == 'login' %}
-                Don't
+                    Don't
                 {% else %}
-                Already
+                    Already
                 {% endif %}
                 have an Account? 
-                <a href="{% if purpose == 'login' %} {{url_for('auth.register')}} {% else %} {{url_for('auth.login')}} {% endif %}" class='link-primary link'>
+                <a href="{% if purpose == 'login' %} {{url_for('auth.register')}} {% else %} {{url_for('auth.login')}} {% endif %}" class='text-decoration-none link-primary'>
                     {% if purpose == 'login' %}
                     Register
                     {% else %}
@@ -35,14 +36,14 @@
                 </a>
             </h5>
             {% with messages = get_flashed_messages() %}
-            {% if messages: %}
-              <p class='red'>{{messages[0]}}</p>
-            {% endif %}
-          {% endwith %}     
+                {% if messages: %}
+                    <p class='text-danger'>{{messages[0]}}</p>
+                {% endif %}
+            {% endwith %}     
         </div>
     </div>
-    <div class='row'>
-        <form action="{% if purpose == 'login' %} {{url_for('auth.login')}} {% else %} {{url_for('auth.register')}} {% endif %}" method="post" novalidate>
+    <div class='row mb-0'>
+        <form action="{% if purpose == 'login' %} {{url_for('auth.login')}} {% else %} {{url_for('auth.register')}} {% endif %}" method="post" novalidate class="mb-0">
             {{form.csrf_token}}
             <div class="form-group">
                 <label class="control-label">{{form.email.label}}</label>
@@ -63,7 +64,7 @@
                 </div>
             {% endif %}
             <br>
-            {{form.submit(class='btn btn-primary')}}
+            {{form.submit(class='btn btn-primary mb-0 float-md-end')}}
         </form>
     </div>
 </main>

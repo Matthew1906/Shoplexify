@@ -1,9 +1,9 @@
 # Shoplexify
 
-#### This is a simple online shop, created using Flask as the Backend Framework. This project is a part of my 100 Days of Python project.
+#### This is a simple online shop, created using Flask as the Backend Framework and Bootstrap CSS as the Frontend CSS Framework. This project is a part of my 100 Days of Python project.
 
 #### This project supposedly includes payment processing, but the suggested api don't really include my country and it kinda felt like fraud to me, using sandbox doesn't seem to achieve anything
-#### Please take note that this website is not responsive at all:v, This project's purpose is to practice by skills in backend using flask. I'll improve it from time to time tho.
+#### This project's purpose is to practice by skills in backend using flask. Therefore, in terms of UI and UX, it might not be great. I'll improve it from time to time.
 
 #### My Approach toward this project
 1. Create Flowchart and ERD, design tables (I changed it, it's wrong but too late (and lazy) to change them)
@@ -14,7 +14,8 @@
 6. Transaction and Checkout
 7. Add Product Review, Slightly fix responsiveness
 8. Restructuring the Application using Blueprints
-9. Deploy the app to Heroku
+9. Fix Responsiveness 
+10. Deploy the app to Heroku
 
 #### Steps of Deployment:
 1. Clone this repository
@@ -24,6 +25,3 @@
 5. When first deploying the app, don't forget to uncomment the create_database(app) call in __init__.py : create_app()
 6. Lastly, don't forget to setup SECRET_KEY from .env file so that the program can start
 7. Start the application by running the code, and then go to http://127.0.0.1:5000/
-
-#### Todo:
-- Improve frontend
