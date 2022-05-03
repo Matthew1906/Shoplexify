@@ -69,7 +69,7 @@ def update_product(id:int):
 @product_manager.route('/products/<int:id>', methods=['GET', 'POST'])
 def get_product(id:int):
     product = Product.query.filter_by(id=id).first()
-    count_order = Order.query.filter_by(user_id = current_user.id, product_id=id).first()
+    count_order = Order.query.filter_by(user_id = current_user.id, product_id=id).first() if current_user.is_authenticated else None
     cart_form = CartForm(
         count= count_order.quantity if current_user.is_authenticated and count_order!=None else 1, 
         limit=product.stock
