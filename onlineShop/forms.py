@@ -42,9 +42,8 @@ class CartForm(FlaskForm):
     def __init__(self, limit=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if limit:
-            print(limit)
-            self.count.validators.append(NumberRange(min=1, max=limit))
-            self.count.widget = NumberInput(min=1, max=limit)
+            self.count.validators.append(NumberRange(min=0, max=limit))
+            self.count.widget = NumberInput(min=0, max=limit)
 
 class TransactionForm(FlaskForm):
     address = TextAreaField('Address', validators=[InputRequired()]) 

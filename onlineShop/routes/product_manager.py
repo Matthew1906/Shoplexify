@@ -1,8 +1,9 @@
 from flask import Blueprint, redirect, render_template, request, url_for
 from flask_login import current_user
+from sqlalchemy import select
 from .. import db
 from ..forms import CartForm, ProductForm, ReviewForm
-from ..models import Category, Product, ProductCategory, ProductReview
+from ..models import Category, Order, Product, ProductCategory, ProductReview, Transaction, TransactionDetail
 from ..utils import admin_only
 
 product_manager = Blueprint('product_manager', __name__)
@@ -68,7 +69,14 @@ def update_product(id:int):
 @product_manager.route('/products/<int:id>', methods=['GET', 'POST'])
 def get_product(id:int):
     product = Product.query.filter_by(id=id).first()
-    cart_form = CartForm(count=1, limit=product.stock)
+    count_order = Order.query.filter_by(user_id = current_user.id, product_id=id).first()
+    cart_form = CartForm(
+        count= count_order.quantity if current_user.is_authenticated and count_order!=None else 1, 
+        limit=product.stock
+    )
+    product_transactions = db.session.execute(
+        select(Transaction.user_id).join(Transaction.details).where(TransactionDetail.product_id==id)
+    ).scalars().all()
     review_form = ReviewForm()
     if current_user.is_authenticated and review_form.validate_on_submit():
         find_product_review = ProductReview.query.filter_by(product=product, user=current_user).first()
@@ -89,5 +97,6 @@ def get_product(id:int):
         cart_form=cart_form, 
         review_form=review_form, 
         product=product, 
-        purpose = 'get'
+        purpose = 'get',
+        valid_review=current_user.id in product_transactions if current_user.is_authenticated else False
     )

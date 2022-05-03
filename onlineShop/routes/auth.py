@@ -26,10 +26,10 @@ def register():
             )
             db.session.add(new_user)
             db.session.commit()
-            flash('Registration completed! Please head to the login page!')
+            flash('Registration completed! Login now!')
         else:
             flash('User already exists, Please login!')
-            return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.login'))
     return render_template('auth.html', form=form, purpose='register')
 
 @auth.route('/login', methods=['GET','POST'])

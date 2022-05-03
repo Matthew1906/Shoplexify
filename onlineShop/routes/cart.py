@@ -6,7 +6,7 @@ from ..utils import member_only
 
 cart = Blueprint('cart', __name__)
 
-@cart.route('/cart/<int:user_id>/products/<int:product_id>/add', methods=['POST'])
+@cart.route('/cart/<int:user_id>/products/<int:product_id>', methods=['POST'])
 @login_required
 @member_only
 def add_to_cart(user_id, product_id):
@@ -15,18 +15,22 @@ def add_to_cart(user_id, product_id):
     if int(request.form.get('count')) > product.stock:
         return redirect(url_for('views.home'))
     order = Order.query.filter_by(user_id=user_id, product_id=product_id).first()
+    prev_quantity = 0
     if order != None:
-        order.quantity+=int(request.form.get('count'))
+        prev_quantity=order.quantity
+        order.quantity = int(request.form.get('count'))
     else:
-        new_order = Order(
+        order = Order(
             user= current_user,
             product = product,
             quantity = int(request.form.get('count'))
         )
-        db.session.add(new_order)
-    product.stock-=int(request.form.get('count'))
+        db.session.add(order)
+    product.stock-=int(request.form.get('count'))-prev_quantity
+    if order.quantity == 0:
+        db.session.delete(order)
     db.session.commit()
-    return redirect(url_for('views.home'))
+    return redirect(url_for('product_manager.get_product', id=product_id))
 
 @cart.route('/cart/<int:user_id>/products/<int:product_id>/delete')
 @login_required
@@ -39,7 +43,7 @@ def delete_from_cart(user_id, product_id):
         product.stock += order.quantity
         db.session.delete(order)
         db.session.commit()
-    return redirect(url_for('views.home'))
+    return redirect(url_for('cart.get_cart', user_id=user_id))
 
 @cart.route('/cart/<int:user_id>')
 @login_required

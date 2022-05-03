@@ -70,7 +70,7 @@
             </div>
         </div>
         {% endif %}
-        {% if purpose == 'get' and current_user.is_authenticated and current_user.id !=1 %} 
+        {% if purpose == 'get' and current_user.is_authenticated and current_user.id !=1 and valid_review %} 
         <div class="row mt-1">
             <div class="col">   
                 <h4>Add Review</h4> 

@@ -37,7 +37,7 @@
             </h5>
             {% with messages = get_flashed_messages() %}
                 {% if messages: %}
-                    <p class='{% if "head" in messages[0] %} text-success {% else %} text-danger {% endif %}'>{{messages[0]}}</p>
+                    <p class='{% if "completed" in messages[0] %} text-success {% else %} text-danger {% endif %}'>{{messages[0]}}</p>
                 {% endif %}
             {% endwith %}     
         </div>

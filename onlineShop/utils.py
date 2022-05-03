@@ -1,7 +1,6 @@
 from flask import Blueprint, abort
 from flask_login import current_user
 from functools import wraps
-from locale import currency
 
 utils = Blueprint('utils', __name__)
 
@@ -23,12 +22,21 @@ def member_only(func):
         return abort(403)
     return decorated_function
 
+# --------------------- Utilities ---------------------
+
+def currency(price:int):
+    price_str = str(price)
+    prefix_index = len(price_str)%3 if len(price_str)%3!=0 else 3
+    prefix = price_str[:prefix_index]
+    suffix = price_str[prefix_index:]
+    return 'Rp' + prefix +''.join(["." + suffix[i*3:3*i+3] for i in range(len(price_str)//3) if suffix[i*3:i*3+3]!='']) + ',00'
+
 # --------------------- Filters ---------------------
 
 @utils.app_template_filter('format_currency')
 def format_currency(price:int):
     '''Format currency'''
-    return currency(float(price))
+    return currency(price)
 
 @utils.app_template_filter('format_date')
 def format_date(date):
@@ -72,15 +80,15 @@ def get_products_count(details):
 @utils.app_template_filter('get_current_sum')
 def get_current_sum(orders):
     '''Get Temporary Total Cost in Cart (from Order object)'''
-    return currency(float(sum([order.product.price * order.quantity for order in orders])))
+    return currency(sum([order.product.price * order.quantity for order in orders]))
 
 @utils.app_template_filter('get_price_sum')
 def get_price_sum(transactions):
     '''Get Total Cost (from Transaction object)'''     
-    return currency(float(sum([transaction.price * transaction.quantity for transaction in transactions])))
+    return currency(sum([transaction.price * transaction.quantity for transaction in transactions]))
 
 @utils.app_template_filter('get_total_payment')
 def get_total_payment(info):
     '''Get Total Cost + Delivery Cost in currency format (from Transaction Object)'''
-    return currency(float(info.delivery_cost+sum([transaction.price * transaction.quantity for transaction in info.details])))
+    return currency(info.delivery_cost+sum([transaction.price * transaction.quantity for transaction in info.details]))
     

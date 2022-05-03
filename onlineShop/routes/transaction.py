@@ -51,7 +51,7 @@ def checkout(user_id):
 def get_all_transactions(user_id):
     if user_id != current_user.id:
         return abort(403)
-    transactions = Transaction.query.filter_by(user_id=user_id)
+    transactions = Transaction.query.filter_by(user_id=user_id).order_by(Transaction.date.desc())
     return render_template('transaction.html', transactions = transactions, purpose='show_all')
 
 @transaction.route('/history/<int:user_id>/transactions/<int:transaction_id>', methods=['GET', 'POST'])
