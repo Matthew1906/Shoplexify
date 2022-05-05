@@ -48,12 +48,15 @@ def create_app():
     from .routes.views import views
     app.register_blueprint(views, url_prefix='/')
 
-    from .models import Category, Order, Product, ProductCategory, ProductReview, Transaction, TransactionDetail, User
+    # Uncomment for initial data
     # create_database(app)
 
     # Login Manager
     login_manager = LoginManager()
     login_manager.init_app(app)
+
+    # Import User Model
+    from .models import User
 
     # Default loading user function
     @login_manager.user_loader
@@ -68,26 +71,13 @@ def create_database(app):
     # insert initial values 
     from .models import Category
     with app.app_context():
-        new_category = Category(name='Automotive')
-        db.session.add(new_category)
-        new_category = Category(name='ArtsAndCrafts')
-        db.session.add(new_category)
-        new_category = Category(name='Books')
-        db.session.add(new_category)
-        new_category = Category(name='Clothing')
-        db.session.add(new_category)
-        new_category = Category(name='Electronics')
-        db.session.add(new_category)
-        new_category = Category(name='Food')
-        db.session.add(new_category)
-        new_category = Category(name='HealthAndBeauty')
-        db.session.add(new_category)
-        new_category = Category(name='HomeAndGarden')
-        db.session.add(new_category)
-        new_category = Category(name='Office')
-        db.session.add(new_category)
-        new_category = Category(name='SportsAndOutdoor')
-        db.session.add(new_category)
+        categories=[
+            'Automotive','ArtsAndCrafts', 'Books', 'Clothing', 'Electronics', 
+            'Food', 'HealthAndBeauty', 'HomeAndGarden', 'Office', 'SportsAndOutdoor'
+        ]
+        for category in categories:
+            new_category = Category(name=category)
+            db.session.add(new_category)
         db.session.commit()
         df = read_csv('./onlineShop/init/products.csv', delimiter=';')
         df.to_sql(name='products', con=db.engine, if_exists='append', index=False)
