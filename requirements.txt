@@ -26,12 +26,9 @@ pylint==2.10.2
 python-dateutil==2.8.2
 python-dotenv==0.19.0
 pytz==2021.1
-requests==2.26.0
 six==1.16.0
 SQLAlchemy==1.4.23
-stripe==2.60.0
 toml==0.10.2
-urllib3==1.26.6
 Werkzeug==2.0.1
 wrapt==1.12.1
 WTForms==2.3.3
