@@ -36,7 +36,7 @@ class ProductForm(FlaskForm):
     )
     submit = SubmitField('Save Product')
 
-# Add to Cart Form
+# Cart
 class CartForm(FlaskForm):
     count = IntegerField('Number of Products', validators=[InputRequired()])
     def __init__(self, limit=None, *args, **kwargs):
@@ -45,6 +45,7 @@ class CartForm(FlaskForm):
             self.count.validators.append(NumberRange(min=0, max=limit))
             self.count.widget = NumberInput(min=0, max=limit)
 
+# Checkout
 class TransactionForm(FlaskForm):
     address = TextAreaField('Address', validators=[InputRequired()]) 
     payment_method = SelectField(
@@ -56,6 +57,7 @@ class TransactionForm(FlaskForm):
     )
     submit = SubmitField("Checkout")
 
+# Product Review
 class ReviewForm(FlaskForm):
     rating = IntegerField('Your Rating (1-5)', validators=[InputRequired(), NumberRange(min=1, max=5)], widget=NumberInput(min=1, max=5))
     body = TextAreaField('Review', validators=[InputRequired()])

@@ -79,5 +79,5 @@ def create_database(app):
             new_category = Category(name=category)
             db.session.add(new_category)
         db.session.commit()
-        df = read_csv('./onlineShop/init/products.csv', delimiter=';')
+        df = read_csv('./resources/products.csv', delimiter=';')
         df.to_sql(name='products', con=db.engine, if_exists='append', index=False)

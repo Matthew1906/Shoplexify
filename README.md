@@ -1,9 +1,8 @@
 # Shoplexify
 
-#### This is a simple online shop, created using Flask as the Backend Framework and Bootstrap CSS as the Frontend Framework. This project is a part of my 100 Days of Python project.
+#### This is a simple multi-page online shop application, created using Flask as the Backend Framework and Bootstrap CSS as the Frontend Framework. The project premise came from my 100 Days of Python Udemy course.
 
-#### This project supposedly includes payment processing, but the suggested api don't really include my country and it kinda felt like fraud to me, using sandbox doesn't seem to achieve anything
-#### This project's purpose is to practice by skills in backend using flask. Therefore, in terms of UI and UX, it's not great. I'll improve it from time to time.
+#### This project's purpose is to practice by skills in backend using flask. Therefore, in terms of UI and UX, it's not great. However, I might improve it from time to time.
 
 #### My Approach toward this project
 1. Create ERD and design tables
