@@ -1,28 +1,6 @@
-from flask import Blueprint, abort
-from flask_login import current_user
-from functools import wraps
+from flask import Blueprint
 
 utils = Blueprint('utils', __name__)
-
-# --------------------- Decorators ---------------------
-
-def admin_only(func):
-    @wraps(func)
-    def decorated_function(*args, **kwargs):
-        if current_user.is_authenticated and current_user.id == 1 :
-            return func(*args, **kwargs)
-        return abort(403)
-    return decorated_function
-
-def member_only(func):
-    @wraps(func)
-    def decorated_function(*args, **kwargs):
-        if current_user.is_authenticated and current_user.id != 1 :
-            return func(*args, **kwargs)
-        return abort(403)
-    return decorated_function
-
-# --------------------- Utilities ---------------------
 
 def currency(price:int):
     price_str = str(price)
@@ -30,8 +8,6 @@ def currency(price:int):
     prefix = price_str[:prefix_index]
     suffix = price_str[prefix_index:]
     return 'Rp' + prefix +''.join(["." + suffix[i*3:3*i+3] for i in range(len(price_str)//3) if suffix[i*3:i*3+3]!='']) + ',00'
-
-# --------------------- Filters ---------------------
 
 @utils.app_template_filter('format_currency')
 def format_currency(price:int):
@@ -91,4 +67,3 @@ def get_price_sum(transactions):
 def get_total_payment(info):
     '''Get Total Cost + Delivery Cost in currency format (from Transaction Object)'''
     return currency(info.delivery_cost+sum([transaction.price * transaction.quantity for transaction in info.details]))
-    

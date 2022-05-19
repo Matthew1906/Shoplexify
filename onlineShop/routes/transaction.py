@@ -3,11 +3,8 @@ from flask import abort, Blueprint, redirect, render_template, request, url_for,
 from flask_login import current_user, login_required
 from json import loads
 from .. import db
-from ..forms import TransactionForm
 from ..models import Order, Transaction, TransactionDetail
-from ..payment_processing import get_payment_info
-from ..utils import member_only
-
+from ..utils import member_only, get_payment_info, TransactionForm
 
 transaction = Blueprint('transaction', __name__)
 

@@ -2,9 +2,8 @@ from flask import Blueprint, redirect, render_template, request, url_for
 from flask_login import current_user
 from sqlalchemy import select
 from .. import db
-from ..forms import CartForm, ProductForm, ReviewForm
 from ..models import Category, Order, Product, ProductCategory, ProductReview, Transaction, TransactionDetail
-from ..utils import admin_only
+from ..utils import admin_only, CartForm, ProductForm, ReviewForm
 
 product_manager = Blueprint('product_manager', __name__)
 

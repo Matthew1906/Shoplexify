@@ -4,7 +4,7 @@ from flask_login import login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from .. import db
 from ..models import User
-from ..forms import RegisterForm, LoginForm
+from ..utils import RegisterForm, LoginForm
 
 auth = Blueprint('auth', __name__)
 
