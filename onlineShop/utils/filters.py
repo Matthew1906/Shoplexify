@@ -67,3 +67,4 @@ def get_price_sum(transactions):
 def get_total_payment(info):
     '''Get Total Cost + Delivery Cost in currency format (from Transaction Object)'''
     return currency(info.delivery_cost+sum([transaction.price * transaction.quantity for transaction in info.details]))
+    

@@ -6,7 +6,7 @@
 
 #### I also implemented a bit of payment processing using [midtrans sandbox](https://docs.midtrans.com/en/technical-reference/sandbox-test). Please take note that the payment process itself is indeed fake
 
-#### Languages and Tools: 
+### Languages and Tools: 
 [![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)](https://code.visualstudio.com/)
 [![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/) 
 [![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/en/2.1.x/) 
@@ -17,15 +17,15 @@
 [![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 [![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white)](https://dashboard.heroku.com/) 
-#### My Approach toward this project
-1. Create ERD and design tables
-2. Build database, Create basic layout of website(navbar and footer), add categories to the database (save the block of code and comment them)
-3. User Authentication (login, register, logout) and Mock data for products (taken from amazon, with a little tinkering) -> saved to .csv
-4. Insert Mock Data into Database, Add product management functionality (Add new products and Update products), add Admin only decorator, and implemented template filter 
-5. Add to Cart function, Pagination, and Search
-6. Transaction and Checkout
-7. Add Product Review, Slightly fix responsiveness
-8. Restructuring the Application using Blueprints
+### My Approach toward this project
+1. Create [ERD](/rules/ERD.jpg) and design [tables](/onlineShop/models/)
+2. Build database, Create basic layout of website (navbar and footer), add categories to the database (save the block of code and comment them)
+3. [User Authentication](/onlineShop/routes/auth.py) (login, register, logout) and [Mock data](/resources/products.csv) for products (taken from amazon, with a little tinkering) -> saved to .csv
+4. Insert Mock Data into Database, Add [product management](/onlineShop/routes/product_manager.py) functionality (Add new products and Update products), add [Admin only](/onlineShop/utils/decorators.py) decorator, and implemented [template filter](/onlineShop/utils/filters.py) 
+5. Add to Cart function, [Pagination](/onlineShop/routes/views.py), and Search
+6. [Transaction and Checkout](/onlineShop/routes/transaction.py)
+7. Add [Product Review](/onlineShop/routes/product_manager.py)
+8. Restructuring the Application using [Blueprints](https://flask.palletsprojects.com/en/2.1.x/blueprints/)
 9. Fix Responsiveness 
-10. Add Sandbox Payment Processing using Midtrans
-11. Deploy the app to Heroku
+10. Add [Sandbox Payment Processing](https://docs.midtrans.com/en/technical-reference/sandbox-test) using [Midtrans](https://midtrans.com/)
+11. Deploy the app to [Heroku](https://dashboard.heroku.com/) 

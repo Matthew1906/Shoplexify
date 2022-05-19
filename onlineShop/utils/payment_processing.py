@@ -37,3 +37,4 @@ def get_payment_info(current_user, transaction):
     }
     transaction_token = snap.create_transaction_token(params)
     return transaction_token, client_key
+    
