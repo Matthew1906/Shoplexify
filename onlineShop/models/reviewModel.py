@@ -13,3 +13,4 @@ class ProductReview(db.Model):
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
     rating = db.Column(db.Integer, nullable=False)
     review = db.Column(db.String(5000), nullable=False)
+    

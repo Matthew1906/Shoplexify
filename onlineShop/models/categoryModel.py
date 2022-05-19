@@ -17,3 +17,4 @@ class ProductCategory(db.Model):
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'), primary_key=True)
     category = relationship('Category', back_populates='product_categories')
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), primary_key=True)
+    

@@ -55,3 +55,4 @@ def login(prompt=False):
 def logout():
     logout_user()
     return redirect(url_for('views.home'))
+    

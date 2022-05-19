@@ -26,3 +26,4 @@ class TransactionDetail(db.Model):
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'), primary_key=True)
     quantity = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Integer, nullable=False)
+    

@@ -13,7 +13,7 @@
     <link href="{{ url_for('static', filename='css/styles.css')}}" rel="stylesheet">
     {% block styles %}{% endblock %}
 </head>
-<body class="vw-100 vh-100">
+<body class="vh-100 min-vw-100">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
           <a class="navbar-brand" href="{{url_for('views.home')}}">Shoplexify</a>

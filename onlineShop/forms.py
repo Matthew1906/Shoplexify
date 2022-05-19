@@ -48,13 +48,6 @@ class CartForm(FlaskForm):
 # Checkout
 class TransactionForm(FlaskForm):
     address = TextAreaField('Address', validators=[InputRequired()]) 
-    payment_method = SelectField(
-        label = 'Choose Payment Method',
-        choices=[
-            ('GoPay'), ('Credit Card'), ('Cash On Demand')
-        ],
-        validators=[InputRequired()]
-    )
     submit = SubmitField("Checkout")
 
 # Product Review
@@ -62,3 +55,4 @@ class ReviewForm(FlaskForm):
     rating = IntegerField('Your Rating (1-5)', validators=[InputRequired(), NumberRange(min=1, max=5)], widget=NumberInput(min=1, max=5))
     body = TextAreaField('Review', validators=[InputRequired()])
     submit = SubmitField('Submit Review')
+    

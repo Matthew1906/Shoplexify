@@ -11,3 +11,4 @@ class Order(db.Model):
     product = relationship('Product', back_populates='orders')
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'), primary_key=True)
     quantity = db.Column(db.Integer, nullable=False)
+    

@@ -41,7 +41,7 @@ def create_app():
 
     from .routes.product_manager import product_manager
     app.register_blueprint(product_manager, url_prefix='/')
-
+    
     from .routes.transaction import transaction
     app.register_blueprint(transaction, url_prefix='/')
 
