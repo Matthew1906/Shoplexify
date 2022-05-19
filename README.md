@@ -4,6 +4,10 @@
 
 #### This project's purpose is to practice by skills in backend using flask. Therefore, in terms of UI and UX, it's not great. However, I might improve it from time to time.
 
+#### I also implemented a bit of payment processing using midtrans sandbox. Please take note that the payment process itself is indeed fake
+
+#### Languages and Tools: 
+
 #### My Approach toward this project
 1. Create ERD and design tables
 2. Build database, Create basic layout of website(navbar and footer), add categories to the database (save the block of code and comment them)
@@ -14,13 +18,5 @@
 7. Add Product Review, Slightly fix responsiveness
 8. Restructuring the Application using Blueprints
 9. Fix Responsiveness 
-10. Deploy the app to Heroku
-
-#### Steps of Deployment:
-1. Clone this repository
-2. Set up a virtual environment by typing 'python -m venv env' in the command line
-3. Set your interpreter path to the virtual environment path
-4. Download all the dependencies (modules) by typing 'python -m pip install -r requirements.txt'
-5. When first deploying the app, don't forget to uncomment the create_database(app) call in __init__.py : create_app()
-6. Lastly, don't forget to setup SECRET_KEY from .env file so that the program can start
-7. Start the application by running the code, and then go to http://127.0.0.1:5000/
+10. Add Sandbox Payment Processing using Midtrans
+11. Deploy the app to Heroku
