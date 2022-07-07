@@ -22,7 +22,7 @@
 ### My Approach toward this project
 1. Create [ERD](/rules/ERD.jpg) and design [tables](/onlineShop/models/)
 2. Build database, Create basic layout of website (navbar and footer), add categories to the database (save the block of code and comment them)
-3. [User Authentication](/onlineShop/routes/auth.py) (login, register, logout) and [Mock data](/resources/products.csv) for products (taken from amazon, with a little tinkering) -> saved to .csv
+3. [User Authentication](/onlineShop/routes/auth.py) (login, register, logout) and [Mock data](/resources/products.csv) for products (taken from [Amazon](https://www.amazon.com/), with a slight changes) -> saved to .csv
 4. Insert Mock Data into Database, Add [product management](/onlineShop/routes/product_manager.py) functionality (Add new products and Update products), add [Admin only](/onlineShop/utils/decorators.py) decorator, and implemented [template filter](/onlineShop/utils/filters.py) 
 5. Add to Cart function, [Pagination](/onlineShop/routes/views.py), and Search
 6. [Transaction and Checkout](/onlineShop/routes/transaction.py)
