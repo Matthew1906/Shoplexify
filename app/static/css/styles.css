@@ -2,6 +2,10 @@ main{
     min-height:90vh;
 }
 
+nav > div, footer > div{
+    max-width: 1440px;
+}
+
 .img-10{
     height:10rem;
     width:10rem;

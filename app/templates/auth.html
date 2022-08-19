@@ -13,18 +13,17 @@
 {% endblock %}
 
 {% block content %}
-<main class ='container mt-5 mb-3'>
-    <br>
+<main class ='container mt-5 mb-3 p-5'>
     <div class="row mb-0">
         <div class="col">
-            <h3>
+            <h1>
                 {% if purpose == 'login' %}
                     Log in to your account 
                 {% else %}
                     Register an account
                 {% endif %} 
-            </h3>
-            <h5>
+            </h1>
+            <h6>
                 {% if purpose == 'login' %}
                     Don't
                 {% else %}
@@ -38,7 +37,7 @@
                     Login
                     {% endif %} 
                 </a>
-            </h5>
+            </h6>
             {% with messages = get_flashed_messages() %}
                 {% if messages: %}
                     <p class='{% if "completed" in messages[0] %} text-success {% else %} text-danger {% endif %}'>{{messages[0]}}</p>
@@ -49,20 +48,20 @@
     <div class='row mb-0'>
         <form action="{% if purpose == 'login' %} {{url_for('auth.login')}} {% else %} {{url_for('auth.register')}} {% endif %}" method="post" class="mb-0">
             {{form.csrf_token}}
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label class="control-label">{{form.email.label}}</label>
                 {{form.email(class="form-control")}}
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label class="control-label">{{form.password.label}}</label>
                 {{form.password(class="form-control")}}
             </div>
             {% if purpose == 'register' %} 
-                <div class="form-group">
+                <div class="form-group mb-2">
                     <label class="control-label">{{form.name.label}}</label>
                     {{form.name(class="form-control")}}
                 </div>
-                <div class="form-group">
+                <div class="form-group mb-2">
                     <label class="control-label">{{form.dob.label}}</label>
                     {{form.dob(class="form-control")}}
                 </div>

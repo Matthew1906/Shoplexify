@@ -16,16 +16,15 @@
 
 {% block content %} 
 <main class="container mt-5 mb-3">
-    <br>
-    <div class="row">
+    <div class="row p-5">
         {% if purpose == 'update' %} 
             <h2 class='text-center'>Update Product</h1>
         {% endif %}
-        <div class="{% if purpose=='update' %} col-md-6 {% else %} col {% endif %}">
+        <div class="{% if purpose=='update' %}col-md-6{% else %}col{% endif %}">
         {% if purpose != 'add' %}
-            <div class="{% if purpose=='get' %} d-flex flex-column flex-md-row {% endif %}">   
+            <div class="{% if purpose=='get' %}d-flex flex-column flex-md-row gap-4{% endif %}">   
             {% if purpose == 'get' %}    
-                    <img src="{{product.image_url}}" alt="{{product.name}}">
+                <img src="{{product.image_url}}" alt="{{product.name}}">
             {% endif %}
                 <div class='card'>
                     {% if purpose == 'update' %} 
@@ -60,40 +59,40 @@
                 </div>
             </div>
         </div>
-        {% if purpose == 'get' %}
-        <div class="row mt-3">
-            <div class = 'col'>
-                {% if product.reviews != [] %}
-                <h4>Reviews: </h4>
-                <hr>
-                {% for review in product.reviews %} 
-                    <p>{{review.rating | get_stars }}, "{{review.review}}" - {{review.user.name}}</p>
-                {% endfor %}
-                <hr>
-                {% endif %}
+            {% if purpose == 'get' %}
+            <div class="row mt-5 mt-md-3">
+                <div class = 'col'>
+                    {% if product.reviews != [] %}
+                    <h4>Reviews: </h4>
+                    <hr>
+                    {% for review in product.reviews %} 
+                        <p>{{review.rating | get_stars }}, "{{review.review}}" - {{review.user.name}}</p>
+                    {% endfor %}
+                    <hr>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-        {% endif %}
-        {% if purpose == 'get' and current_user.is_authenticated and current_user.id !=1 and valid_review %} 
-        <div class="row mt-1">
-            <div class="col">   
-                <h4>Add Review</h4> 
-                <form action="{{url_for('product_manager.get_product', id=product.id)}}" method="post" novalidate class='col'>
-                    {{review_form.csrf_token}}
-                    <div class="form-group mb-2">
-                        <label class="control-label mb-1">{{review_form.rating.label}}</label>
-                        {{review_form.rating(class="form-control")}}
-                    </div>
-                    <div class="form-group mb-2">
-                        <label class="control-label mb-1">{{review_form.body.label}}</label>
-                        {{review_form.body(class="form-control")}}
-                    </div>  
-                    <br>
-                    {{review_form.submit(class='btn btn-primary float-end')}}
-                </form>
+            {% if current_user.is_authenticated and current_user.id !=1 and valid_review %} 
+            <div class="row mt-1">
+                <div class="col">   
+                    <h4>Add Review</h4> 
+                    <form action="{{url_for('product_manager.get_product', id=product.id)}}" method="post" novalidate class='col'>
+                        {{review_form.csrf_token}}
+                        <div class="form-group mb-2">
+                            <label class="control-label mb-1">{{review_form.rating.label}}</label>
+                            {{review_form.rating(class="form-control")}}
+                        </div>
+                        <div class="form-group mb-2">
+                            <label class="control-label mb-1">{{review_form.body.label}}</label>
+                            {{review_form.body(class="form-control")}}
+                        </div>  
+                        <br>
+                        {{review_form.submit(class='btn btn-primary float-end')}}
+                    </form>
+                </div>
             </div>
-        </div>
-        {% endif %}
+            {% endif %}
+            {% endif %}
         {% endif %}
         {% if purpose != 'get' %} 
         <form action="{% if purpose == 'add' %}{{url_for('product_manager.add_product')}}{% else %}{{url_for('product_manager.update_product', id=product.id)}}{% endif %}" method="post" novalidate class='col pb-3'>
