@@ -67,12 +67,27 @@ def update_product(id:int):
 
 @product_manager.route('/products/<int:id>', methods=['GET', 'POST'])
 def get_product(id:int):
+    # Get product object
     product = Product.query.filter_by(id=id).first()
+    # Get product recommendations
+    recommendations = Product.query.filter(Product.id!=id)\
+        .join(Product.reviews, isouter=True).join(Product.categories, isouter=True)\
+            .order_by(ProductReview.rating.desc())
+    if product.categories!=[]:
+        product_categories = set([cat.category for cat in product.categories])
+        filter_categories = lambda x:list(set([cat.category for cat in x.categories]).intersection(product_categories))!=[]
+        similar_products = list(filter(filter_categories, recommendations))[:10]
+        similar_products+=recommendations[:10-len(similar_products)]
+    else:
+        similar_products = recommendations[:10]
+    print(len(similar_products))
+    # Get cart status (if the user is logged in, it will check his/her orders)
     count_order = Order.query.filter_by(user_id = current_user.id, product_id=id).first() if current_user.is_authenticated else None
     cart_form = CartForm(
         count= count_order.quantity if current_user.is_authenticated and count_order!=None else 1, 
         limit=product.stock
     )
+    # Check if the user is allowed to give reviews
     product_transactions = db.session.execute(
         select(Transaction.user_id).join(Transaction.details).where(TransactionDetail.product_id==id)
     ).scalars().all()
@@ -97,5 +112,6 @@ def get_product(id:int):
         review_form=review_form, 
         product=product, 
         purpose = 'get',
-        valid_review=current_user.id in product_transactions if current_user.is_authenticated else False
+        valid_review=current_user.id in product_transactions if current_user.is_authenticated else False,
+        recommendations=similar_products
     )
