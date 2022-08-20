@@ -76,10 +76,10 @@ def get_product(id:int):
     if product.categories!=[]:
         product_categories = set([cat.category for cat in product.categories])
         filter_categories = lambda x:list(set([cat.category for cat in x.categories]).intersection(product_categories))!=[]
-        similar_products = list(filter(filter_categories, recommendations))[:10]
-        similar_products+=recommendations[:10-len(similar_products)]
+        similar_products = list(filter(filter_categories, recommendations))[:12]
+        similar_products+=recommendations[:12-len(similar_products)]
     else:
-        similar_products = recommendations[:10]
+        similar_products = recommendations[:12]
     similar_products.sort(key=lambda x:(sum([review.rating for review in x.reviews]) // len(x.reviews)) if len(x.reviews)!=0 else 0, reverse=True)
     # Get cart status (if the user is logged in, it will check his/her orders)
     count_order = Order.query.filter_by(user_id = current_user.id, product_id=id).first() if current_user.is_authenticated else None
