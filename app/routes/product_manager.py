@@ -113,5 +113,5 @@ def get_product(id:int):
         product=product, 
         purpose = 'get',
         valid_review=current_user.id in product_transactions if current_user.is_authenticated else False,
-        recommendations=similar_products
+        recommendations=similar_products.sort(key=lambda x:x.rating, reverse=True)
     )
