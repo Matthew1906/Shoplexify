@@ -77,7 +77,7 @@ def get_product(id:int):
         product_categories = set([cat.category for cat in product.categories])
         filter_categories = lambda x:list(set([cat.category for cat in x.categories]).intersection(product_categories))!=[]
         similar_products = list(filter(filter_categories, recommendations))[:9]
-        similar_products+=recommendations[:9-len(similar_products)]
+        similar_products+=list(set(recommendations)-set(similar_products))[:9-len(similar_products)]
     else:
         similar_products = recommendations[:9]
     similar_products.sort(key=lambda x:(sum([review.rating for review in x.reviews]) // len(x.reviews)) if len(x.reviews)!=0 else 0, reverse=True)

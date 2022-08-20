@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 from .. import db
-from ..models import Order, Product
+from ..models import Order, Product, ProductReview
 from ..utils import member_only
 
 cart = Blueprint('cart', __name__)
@@ -51,7 +51,9 @@ def delete_from_cart(user_id, product_id):
 def get_cart(user_id):
     '''Get user's cart'''
     orders = Order.query.filter_by(user_id=user_id)
-    return render_template('cart.html', orders = orders)
+    recommendations = list(filter(lambda x:x.id not in [order.product.id for order in orders], Product.query.all()))
+    recommendations.sort(key=lambda x:(sum([review.rating for review in x.reviews]) // len(x.reviews)) if len(x.reviews)!=0 else 0, reverse=True)
+    return render_template('cart.html', orders = orders, recommendations=recommendations[:9])
 
 @cart.route('/cart/<int:user_id>/clear')
 @login_required

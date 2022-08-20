@@ -18,11 +18,11 @@
 <main class="container mt-5 mb-3">
     <div class="row p-5">
         {% if purpose == 'update' %} 
-            <h2 class='text-center'>Update Product</h1>
+            <h2 class='text-center mb-4'>Update Product</h1>
         {% endif %}
         <div class="{% if purpose=='update' %}col-md-6{% else %}col{% endif %}">
         {% if purpose != 'add' %}
-            <div class="{% if purpose=='get' %}d-flex flex-column flex-md-row gap-4{% endif %}">   
+            <div class="{% if purpose=='get' %}d-flex flex-column flex-lg-row gap-4{% endif %}">   
             {% if purpose == 'get' %}    
                 <img src="{{product.image_url}}" alt="{{product.name}}">
             {% endif %}
@@ -30,7 +30,7 @@
                     {% if purpose == 'update' %} 
                         <div class="text-center">
                             <h4 class="card-header">{{product.name}}</h4> 
-                            <img src="{{product.image_url}}" alt="{{product.name}}" class='img-16'>
+                            <img src="{{product.image_url}}" alt="{{product.name}}" class='img-16 w-100'>
                         </div>
                     {% else %} 
                         <h1 class="card-header">{{product.name}}</h1>
@@ -45,7 +45,7 @@
                             {% if current_user.id != 1 %}
                             <form id = 'cart_form' action="{% if current_user.is_authenticated %}{{url_for('cart.add_to_cart', user_id=current_user.id, product_id=product.id)}}{% else %}{{url_for('auth.login', prompt=True)}}{% endif %}" method="post">
                                 {{cart_form.csrf_token}} 
-                                {{cart_form.count(class='mx-2')}}
+                                {{cart_form.count(class='mx-2 mb-3 mb-md-0')}}
                                 <button type = 'submit' class = 'btn btn-primary' onclick="{% if current_user.is_authenticated %}addedToCart();{% endif %}">Add to Cart</button>
                             </form>
                             {% endif %}
@@ -93,10 +93,10 @@
             </div>
             {% endif %}
             <div class="row mt-5 mt-md-3">
-                <div class="row d-flex flex-row wrap justify-content-between"> 
+                <div class="row d-flex flex-row wrap justify-content-center justify-content-lg-between"> 
                     <h4 class="mb-3">Similar Products</h4>
                     {% for recommendation in recommendations %}
-                    <div class="card col-sm-3 m-2" style="width:22.5rem;">
+                    <div class="card col-3 m-2" style="width:22.5rem;">
                         <img src="{{recommendation.image_url}}" class="img-16 mx-auto" alt="{{recommendation.name}}">
                         <div class="card-body">
                             <h5 class="card-title">{{recommendation.name}}</h5>
@@ -118,7 +118,7 @@
         {% if purpose != 'get' %} 
         <form action="{% if purpose == 'add' %}{{url_for('product_manager.add_product')}}{% else %}{{url_for('product_manager.update_product', id=product.id)}}{% endif %}" method="post" novalidate class='col pb-3'>
             {{form.csrf_token}}
-            <h2>
+            <h2 class="mb-3">
                 {% if purpose == 'add' %}
                     Add Product
                 {% endif %}

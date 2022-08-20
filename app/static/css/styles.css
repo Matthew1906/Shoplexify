@@ -17,3 +17,22 @@ nav > div, footer > div{
     height:16rem;
     margin:0;
 }
+
+@media(max-width:768px){
+    .img-16, .img-10{
+        width:100%;
+        height:auto;
+    }
+    
+    h4{
+        font-size:1.15rem;
+    }
+    
+    .card-title{
+        font-size: 1rem;
+    }
+
+    .card-text, footer{
+        font-size: 0.75rem;
+    }
+}
