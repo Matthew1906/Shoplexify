@@ -30,4 +30,5 @@
 8. Restructuring the Application using [Blueprints](https://flask.palletsprojects.com/en/2.1.x/blueprints/)
 9. Fix Responsiveness 
 10. Add [Sandbox Payment Processing](https://docs.midtrans.com/en/technical-reference/sandbox-test) using [Midtrans](https://midtrans.com/)
-11. Deploy the app to [Heroku](https://dashboard.heroku.com/) 
+11. Add Product recommendations
+12. Deploy the app to [Heroku](https://dashboard.heroku.com/) 

@@ -80,7 +80,7 @@ def get_product(id:int):
         similar_products+=recommendations[:10-len(similar_products)]
     else:
         similar_products = recommendations[:10]
-    print(len(similar_products))
+    similar_products.sort(key=lambda x:(sum([review.rating for review in x.reviews]) // len(x.reviews)) if len(x.reviews)!=0 else 0, reverse=True)
     # Get cart status (if the user is logged in, it will check his/her orders)
     count_order = Order.query.filter_by(user_id = current_user.id, product_id=id).first() if current_user.is_authenticated else None
     cart_form = CartForm(
@@ -113,5 +113,5 @@ def get_product(id:int):
         product=product, 
         purpose = 'get',
         valid_review=current_user.id in product_transactions if current_user.is_authenticated else False,
-        recommendations=similar_products.sort(key=lambda x:x.rating, reverse=True)
+        recommendations=similar_products
     )
