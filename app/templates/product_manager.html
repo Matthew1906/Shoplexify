@@ -92,27 +92,7 @@
                 </div>
             </div>
             {% endif %}
-            <div class="row mt-5 mt-md-3">
-                <div class="row d-flex flex-row wrap justify-content-center justify-content-lg-between"> 
-                    <h4 class="mb-3">Similar Products</h4>
-                    {% for recommendation in recommendations %}
-                    <div class="card col-3 m-2" style="width:22.5rem;">
-                        <img src="{{recommendation.image_url}}" class="img-16 mx-auto" alt="{{recommendation.name}}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{recommendation.name}}</h5>
-                            <p class="card-text">
-                              {{recommendation.reviews | get_average_rating}} ({{recommendation.reviews | get_number_of_reviews}})
-                            </p>
-                            <p class="card-text">
-                                {{ recommendation.categories | refactor_categories}}
-                            </p>
-                            <p class="card-text">{{recommendation.price | format_currency}}</p>
-                            <a href="{{url_for('product_manager.get_product', id=recommendation.id)}}" class="btn btn-primary">Check it out</a>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
+            {% include "partials/recommendations.html" %}
             {% endif %}
         {% endif %}
         {% if purpose != 'get' %} 
