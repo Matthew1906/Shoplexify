@@ -23,7 +23,7 @@ class TransactionDetail(db.Model):
     transaction = relationship('Transaction', back_populates='details')
     transaction_id = db.Column(db.Integer, db.ForeignKey('transactions.id'), primary_key=True)
     product = relationship('Product', back_populates='transaction_details')
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), primary_key=True)
+    product_id = db.Column(db.String(255), db.ForeignKey('products.id'), primary_key=True)
     quantity = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Integer, nullable=False)
     

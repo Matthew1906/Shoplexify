@@ -1,3 +1,4 @@
+from datetime import datetime as dt
 from dotenv import load_dotenv
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -5,6 +6,8 @@ from flask_login import LoginManager
 from locale import setlocale, LC_ALL
 from os import getenv, path
 from pandas import read_csv
+from slugify import slugify
+from werkzeug.security import generate_password_hash
 
 # Create Database
 db = SQLAlchemy()
@@ -24,7 +27,7 @@ def create_app():
     if getenv('DATABASE_URL') == None:
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///online-shop.db'
     else: 
-        app.config['SQLALCHEMY_DATABASE_URI'] = getenv('DATABASE_URL').replace("postgres", "postgresql")
+        app.config['SQLALCHEMY_DATABASE_URI'] = getenv('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # Initialize Database
@@ -69,15 +72,24 @@ def create_database(app):
     # create database
     db.create_all(app=app)    
     # insert initial values 
-    from .models import Category
+    from .models import Category, User
     with app.app_context():
+        admin = User(
+            name='admin', 
+            email='admin@admin.com', 
+            password=generate_password_hash('admin', method='pbkdf2:sha256', salt_length=13,),
+            dob=dt(2002, 10, 15)
+        )
+        db.session.add(admin)
         categories=[
             'Automotive','ArtsAndCrafts', 'Books', 'Clothing', 'Electronics', 
             'Food', 'HealthAndBeauty', 'HomeAndGarden', 'Office', 'SportsAndOutdoor'
         ]
         for category in categories:
-            new_category = Category(name=category)
+            new_category = Category(id=slugify(category.replace("And", "-")), name=category)
             db.session.add(new_category)
         db.session.commit()
-        df = read_csv('./resources/products.csv', delimiter=';')
-        df.to_sql(name='products', con=db.engine, if_exists='append', index=False)
+        product_cats = read_csv("./resources/product_categories.csv", delimiter=";")
+        products = read_csv('./resources/products.csv', delimiter=';')
+        products.to_sql(name='products', con=db.engine, if_exists='append', index=False)
+        product_cats.to_sql(name='product_categories', con=db.engine, if_exists='append', index=False)

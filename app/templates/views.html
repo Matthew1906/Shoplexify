@@ -1,7 +1,11 @@
 {% extends "layout.html" %} 
 
 {% block title %}
-   Home
+  {% if category %}
+  Products - {{category_name}}
+  {% else %}
+  Home
+  {% endif %}
 {% endblock %}
 
 {% block icon %}
@@ -14,6 +18,9 @@
       {% if products.items == [] %} 
         <h2 class=''>There are no products!</h2>
       {% else %}
+        {% if category %}
+          <h1>{{category_name | format_category}}</h1>
+        {% endif %}
         {% for product in products.items %} 
         <div class="card col-sm-4 m-4" style="width: 18rem;">
               <img src="{{product.image_url}}" class="img-16" alt="{{product.name}}">
@@ -33,10 +40,20 @@
         <!-- Pagination -->
         <ul class='pagination justify-content-center mt-1'>
             <li class="page-item {% if not products.has_prev %} disabled {% endif %}">
+              {% if category %}
+              <a class="page-link" href="{% if products.has_prev %}{{url_for('views.get_by_category', id=category, page=products.prev_num)}}{% endif %}">Previous</a>
+              {% else %}
               <a class="page-link" href="{% if products.has_prev %}{{url_for('views.home', page=products.prev_num)}}{% endif %}">Previous</a>
+              {% endif %}
             </li>
             {% if products.page != 1 %}
-              <li class="page-item"><a class="page-link" href="{{url_for('views.home', page=1)}}">1</a></li>
+              <li class="page-item">
+                {% if category %}
+                <a class="page-link" href="{{url_for('views.get_by_category', id=category, page=1)}}">1</a>
+                {% else %}
+                <a class="page-link" href="{{url_for('views.home', page=1)}}">1</a>
+                {% endif %}
+              </li>
               {% if products.page != 2 %}
                 <li class="page-item disabled"><a class="page-link" href="#">🞄🞄🞄</a></li>
               {% endif %}
@@ -48,10 +65,20 @@
               {% if products.page+1 != products.pages%}
                 <li class="page-item disabled"><a class="page-link" href="#">🞄🞄🞄</a></li>
               {% endif %}
-              <li class="page-item"><a class="page-link" href="{{url_for('views.home', page=products.pages)}}">{{products.pages}}</a></li>
+              <li class="page-item">
+                {% if category %}
+                <a class="page-link" href="{{url_for('views.get_by_category', id=category, page=products.pages)}}">{{products.pages}}</a>
+                {% else %}
+                <a class="page-link" href="{{url_for('views.home', page=products.pages)}}">{{products.pages}}</a>
+                {% endif %}
+              </li>
             {% endif %}
             <li class="page-item {% if not products.has_next %} disabled {% endif %}">
+              {% if category %}
+              <a class="page-link" href="{% if products.has_next %}{{url_for('views.get_by_category', id=category, page=products.next_num)}}{% endif %}">Next</a>
+              {% else %}
               <a class="page-link" href="{% if products.has_next %}{{url_for('views.home', page=products.next_num)}}{% endif %}">Next</a>
+              {% endif %}
             </li>
           </ul>
           {% if current_user.id == 1 %}

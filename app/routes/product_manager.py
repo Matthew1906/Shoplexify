@@ -33,9 +33,9 @@ def add_product():
             return redirect(url_for('views.home'))
     return render_template('product_manager.html', purpose = 'add', form = form)
 
-@product_manager.route('/products/<int:id>/update', methods=['GET', 'POST'])
+@product_manager.route('/products/<id>/update', methods=['GET', 'POST'])
 @admin_only
-def update_product(id:int):
+def update_product(id):
     product = Product.query.filter_by(id=id).first()
     form = ProductForm(
         name = product.name,
@@ -65,8 +65,8 @@ def update_product(id:int):
         return redirect(url_for('product_manager.get_product', id=id))
     return render_template('product_manager.html', product=product, purpose = 'update', form = form)
 
-@product_manager.route('/products/<int:id>', methods=['GET', 'POST'])
-def get_product(id:int):
+@product_manager.route('/products/<id>', methods=['GET', 'POST'])
+def get_product(id):
     # Get product object
     product = Product.query.filter_by(id=id).first()
     # Get product recommendations

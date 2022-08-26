@@ -19,6 +19,11 @@ def format_date(date):
     '''Format Date'''
     return date.strftime('%d/%m/%Y')
 
+@utils.app_template_filter('format_category')
+def format_category(category):
+    '''Format Date'''
+    return category.replace("And", " & ")
+
 @utils.app_template_filter('refactor_categories')
 def refactor_categories(categories:list):
     '''Change the categories into a more readable string format'''
