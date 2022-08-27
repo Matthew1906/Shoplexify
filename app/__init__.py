@@ -27,7 +27,7 @@ def create_app():
     if getenv('DATABASE_URL') == None:
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///online-shop.db'
     else: 
-        app.config['SQLALCHEMY_DATABASE_URI'] = getenv('DB_URL')
+        app.config['SQLALCHEMY_DATABASE_URI'] = getenv('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # Initialize Database
