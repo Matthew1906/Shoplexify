@@ -6,6 +6,11 @@ nav > div, footer > div{
     max-width: 1440px;
 }
 
+img{
+    max-width:500px;
+    max-height:500px;
+}
+
 .img-10{
     height:10rem;
     width:10rem;
