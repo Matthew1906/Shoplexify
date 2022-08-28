@@ -44,6 +44,11 @@
                             <h4 class="card-text">{{detail.product.name}}</h4>
                             <p class="card-text">Price: {{detail.price | format_currency}}</p> 
                             <p class="card-text">Quantity: {{detail.quantity}}</p>
+                            {% if transaction.payment_status == 'Paid' %}
+                            <a href="{{url_for('product_manager.get_product', id=detail.product.id)}}" class="btn btn-primary">
+                                Add Review
+                            </a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

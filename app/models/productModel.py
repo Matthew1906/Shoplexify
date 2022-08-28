@@ -1,6 +1,7 @@
 # Database
 from .. import db 
 from sqlalchemy.orm import relationship 
+from sqlalchemy.ext.hybrid import hybrid_property
 
 # Config table
 class Product(db.Model):
