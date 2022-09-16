@@ -24,6 +24,10 @@ def format_category(category):
     '''Format Date'''
     return category.replace("And", " & ")
 
+@utils.app_template_filter("format_notification")
+def format_notification(notification):
+    return f"<span class='fw-bold {notification.get('color')}'>{'Completed' if notification.get('status') else 'Unpaid'}</span> transaction on {notification.get('date').strftime('%d/%m/%Y')}"
+
 @utils.app_template_filter('refactor_categories')
 def refactor_categories(categories:list):
     '''Change the categories into a more readable string format'''

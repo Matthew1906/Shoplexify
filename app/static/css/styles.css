@@ -23,6 +23,21 @@ img{
     margin:0;
 }
 
+#notificationDropdown::after {
+    content: none;
+}
+
+#notificationDropdown span{
+    margin-top:-1rem!important;
+    margin-left:-0.85rem!important;
+    font-size:0.75rem !important;
+}
+
+.notification-list{
+    min-width:300px!important;
+    width:auto !important;
+}
+
 @media(max-width:768px){
     .img-16, .img-10{
         width:100%;

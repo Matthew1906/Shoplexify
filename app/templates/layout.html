@@ -21,7 +21,7 @@
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="collapse navbar-collapse my-2 my-lg-0" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -41,7 +41,7 @@
                     </ul>
                 </li>
             </ul>
-            <form class="d-flex mx-auto" action='{{url_for("views.search_product")}}' method='GET'>
+            <form class="d-flex mx-auto my-2 my-lg-0" action='{{url_for("views.search_product")}}' method='GET'>
                 <input class="form-control me-2" name='search' type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-light" type="submit">Browse</button>
                 {% if current_user.is_authenticated %}
@@ -50,7 +50,7 @@
                     <a href='{{url_for("auth.login", prompt=True)}}' class='mx-1 btn btn-outline-light' onclick='loginFirst()'><i class="fas fa-shopping-cart"></i></a>
                 {% endif %}
             </form>
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto my-2 my-lg-0">
                 {% if not current_user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{url_for('auth.register')}}">Register</a>
@@ -59,21 +59,37 @@
                     <a class="nav-link" href="{{url_for('auth.login')}}">Login</a>
                 </li>
                 {% else %}
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{current_user.name}}
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                        {% if current_user.id != 1 %}
-                        <li class="nav-item">
-                            <a class="dropdown-item" href="{{url_for('transaction.get_all_transactions', user_id=current_user.id)}}">History</a>
-                        </li>
-                        {% endif %}
-                        <li class="nav-item">
-                            <a class="dropdown-item" href="{{url_for('auth.logout')}}">Logout</a>
-                        </li>
-                    </ul>
-                </li>
+                <div class="d-flex gap-2 gap-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-bell fs-4"></i>
+                            <span class="px-2 py-1 bg-danger rounded-circle fw-bold text-white text-center align-middle">{{current_user | num_of_notifications}}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+                            {% for notification in current_user | all_notifications %}
+                            <li class="px-3 py-1 notification-list">
+                                {{notification | format_notification | safe }} 
+                                <a href="{{url_for('transaction.get_transaction_history', user_id=current_user.id, transaction_id=notification.id)}}" class="fas fa-arrow-circle-right text-decoration-none"></a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{current_user.name}}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            {% if current_user.id != 1 %}
+                            <li class="nav-item">
+                                <a class="dropdown-item" href="{{url_for('transaction.get_all_transactions', user_id=current_user.id)}}">History</a>
+                            </li>
+                            {% endif %}
+                            <li class="nav-item">
+                                <a class="dropdown-item" href="{{url_for('auth.logout')}}">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </div>
                 {% endif %}
             </ul>
           </div>
