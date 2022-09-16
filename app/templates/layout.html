@@ -72,6 +72,11 @@
                                 <a href="{{url_for('transaction.get_transaction_history', user_id=current_user.id, transaction_id=notification.id)}}" class="fas fa-arrow-circle-right text-decoration-none"></a>
                             </li>
                             {% endfor %}
+                            {% if current_user | num_of_notifications == 0 %}
+                            <li class="px-3 py-1 notification-list">
+                                No notifications!!
+                            </li>
+                            {% endif %}s
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
