@@ -86,8 +86,5 @@
           {% endif %}
       {% endif %}
   </div>
-  {% if current_user.is_authenticated %}
-    {{current_user | all_notifications }}
-  {% endif %}
 </main>
 {% endblock %}

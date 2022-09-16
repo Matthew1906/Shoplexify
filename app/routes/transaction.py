@@ -81,6 +81,7 @@ def get_payment_notifications():
     transaction.delivery_status = 'Delivered'
     transaction.payment_status = 'Paid'
     transaction.payment_method = payment_method
+    transaction.date = datetime.now().date()
     db.session.commit()  
     return redirect(url_for('transaction.get_transaction_history', user_id=current_user.id, transaction_id=transaction_id))
     
