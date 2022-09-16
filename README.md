@@ -34,4 +34,5 @@
 10. Add [Sandbox Payment Processing](https://docs.midtrans.com/en/technical-reference/sandbox-test) using [Midtrans](https://midtrans.com/)
 11. Add Product recommendations
 12. Configure Database Connection with [AWS RDS](https://aws.amazon.com/rds/)
-13. Deploy the app to [Heroku](https://dashboard.heroku.com/) 
+13. Add Notification System
+14. Deploy the app to [Heroku](https://dashboard.heroku.com/) 
