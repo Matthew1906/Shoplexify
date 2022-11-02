@@ -34,22 +34,22 @@ def create_app():
     db.init_app(app)
     
     from .utils import utils
-    app.register_blueprint(utils, url_prefix='/')
+    app.register_blueprint(utils)
 
     from .routes.auth import auth
-    app.register_blueprint(auth, url_prefix='/')
+    app.register_blueprint(auth, url_prefix='/shoplexify')
 
     from .routes.cart import cart
-    app.register_blueprint(cart, url_prefix='/')
+    app.register_blueprint(cart, url_prefix='/shoplexify')
 
     from .routes.product_manager import product_manager
-    app.register_blueprint(product_manager, url_prefix='/')
+    app.register_blueprint(product_manager, url_prefix='/shoplexify')
     
     from .routes.transaction import transaction
-    app.register_blueprint(transaction, url_prefix='/')
+    app.register_blueprint(transaction, url_prefix='/shoplexify')
 
     from .routes.views import views
-    app.register_blueprint(views, url_prefix='/')
+    app.register_blueprint(views, url_prefix='/shoplexify')
 
     # Uncomment for initial data
     # create_database(app)
