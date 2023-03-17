@@ -17,9 +17,7 @@
 [![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)](https://www.javascript.com/) 
 [![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
-[![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white)](https://dashboard.heroku.com/)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
-![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 
 ### My Approach toward this project
 1. Create [ERD](/rules/ERD.jpg) and design [tables](/onlineShop/models/)
@@ -33,6 +31,4 @@
 9. Fix Responsiveness 
 10. Add [Sandbox Payment Processing](https://docs.midtrans.com/en/technical-reference/sandbox-test) using [Midtrans](https://midtrans.com/)
 11. Add Product recommendations
-12. Configure Database Connection with [AWS RDS](https://aws.amazon.com/rds/)
-13. Add Notification System
-14. Deploy the app to [Heroku](https://dashboard.heroku.com/) 
+12. Add Notification System
