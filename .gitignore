@@ -4,6 +4,7 @@ env
 .env
 Procfile
 .db
+resources
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
