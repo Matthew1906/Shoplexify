@@ -37,19 +37,19 @@ def create_app():
     app.register_blueprint(utils)
 
     from .routes.auth import auth
-    app.register_blueprint(auth, url_prefix='/shoplexify')
+    app.register_blueprint(auth)
 
     from .routes.cart import cart
-    app.register_blueprint(cart, url_prefix='/shoplexify')
+    app.register_blueprint(cart)
 
     from .routes.product_manager import product_manager
-    app.register_blueprint(product_manager, url_prefix='/shoplexify')
+    app.register_blueprint(product_manager)
     
     from .routes.transaction import transaction
-    app.register_blueprint(transaction, url_prefix='/shoplexify')
+    app.register_blueprint(transaction)
 
     from .routes.views import views
-    app.register_blueprint(views, url_prefix='/shoplexify')
+    app.register_blueprint(views)
 
     # Uncomment for initial data
     # create_database(app)
@@ -74,22 +74,17 @@ def create_database(app):
     # insert initial values 
     from .models import Category, User
     with app.app_context():
-        admin = User(
-            name='admin', 
-            email='admin@admin.com', 
-            password=generate_password_hash('admin', method='pbkdf2:sha256', salt_length=13,),
-            dob=dt(2002, 10, 15)
-        )
-        db.session.add(admin)
-        categories=[
-            'Automotive','ArtsAndCrafts', 'Books', 'Clothing', 'Electronics', 
-            'Food', 'HealthAndBeauty', 'HomeAndGarden', 'Office', 'SportsAndOutdoor'
-        ]
-        for category in categories:
-            new_category = Category(id=slugify(category.replace("And", "-")), name=category)
-            db.session.add(new_category)
-        db.session.commit()
-        product_cats = read_csv("./resources/product_categories.csv", delimiter=";")
+        categories = read_csv('./resources/categories.csv', delimiter=";")
         products = read_csv('./resources/products.csv', delimiter=';')
+        product_categories = read_csv("./resources/product_categories.csv", delimiter=";")
+        reviews = read_csv('./resources/reviews.csv', delimiter=";")
+        transactions = read_csv("./resources/transactions.csv", delimiter=";")
+        transaction_details = read_csv('./resources/transaction_details.csv', delimiter=";")
+        users = read_csv("./resources/users.csv", delimiter=";")
+        categories.to_sql(name='categories', con=db.engine, if_exists='append', index=False)
         products.to_sql(name='products', con=db.engine, if_exists='append', index=False)
-        product_cats.to_sql(name='product_categories', con=db.engine, if_exists='append', index=False)
+        product_categories.to_sql(name='product_categories', con=db.engine, if_exists='append', index=False)
+        users.to_sql(name='users', con=db.engine, if_exists='append', index=False)
+        reviews.to_sql(name='reviews', con=db.engine, if_exists='append', index=False)
+        transactions.to_sql(name='transactions', con=db.engine, if_exists='append', index=False)
+        transaction_details.to_sql(name='transaction_details', con=db.engine, if_exists='append', index=False)

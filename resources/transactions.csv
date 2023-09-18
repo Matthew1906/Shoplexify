@@ -1,0 +1,9 @@
+id;date;user_id;payment_method;payment_status;address;delivery_cost;delivery_status
+1;2022-08-27;2;gopay;Paid;Somewhere over the rainbow;2600;Delivered
+2;2022-08-27;3;gopay;Paid;Jl. Sini situ No 12;1900;Delivered
+3;2022-08-27;4;Untold;Unpaid;lalalaland;1000;Unsent
+4;2022-08-28;4;credit_card;Paid;lalalaland;1000;Delivered
+5;2022-08-31;2;qris;Paid;Blablablablabla;1500;Delivered
+6;2022-09-16;2;qris;Paid;Earth C-137;1100;Delivered
+7;2022-09-18;6;Untold;Unpaid;A;100;Unsent
+8;2022-09-18;4;credit_card;Paid;1;100;Delivered
