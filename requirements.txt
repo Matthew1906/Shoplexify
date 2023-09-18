@@ -21,7 +21,7 @@ lazy-object-proxy==1.6.0
 MarkupSafe==2.0.1
 mccabe==0.6.1
 midtransclient==1.4.1
-numpy==1.22.3
+numpy==1.21.6
 pandas==1.4.2
 pathspec==0.9.0
 platformdirs==2.3.0

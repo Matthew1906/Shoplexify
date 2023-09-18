@@ -5,7 +5,7 @@ function addedToCart(){
 
 function redirectPayment(result){
     let f = document.createElement('form');
-    f.action = 'https://matthew1906-shoplexify.herokuapp.com/payment/notifications';
+    f.action = 'https://shoplexify.onrender.com/payment/notifications';
     f.method = 'POST';
     let order_id = document.createElement('input');
     order_id.type = 'hidden';
