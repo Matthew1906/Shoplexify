@@ -16,7 +16,7 @@ db = SQLAlchemy()
 load_dotenv()
 
 # Configure Locale
-setlocale(LC_ALL, 'id_ID.utf8')
+# setlocale(LC_ALL, 'id_ID.utf8')
 
 def create_app():
     # Create App
