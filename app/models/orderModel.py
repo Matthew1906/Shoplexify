@@ -9,6 +9,6 @@ class Order(db.Model):
     user = relationship('User', back_populates='cart')
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
     product = relationship('Product', back_populates='orders')
-    product_id = db.Column(db.String(255), db.ForeignKey('products.id'), primary_key=True)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), primary_key=True)
     quantity = db.Column(db.Integer, nullable=False)
     

@@ -11,7 +11,7 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(255), unique=True, nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
-    dob = db.Column(db.Date, nullable=False)
+    dob = db.Column(db.Date, nullable=True)
     cart = relationship('Order', back_populates='user')
     reviews = relationship('ProductReview', back_populates='user')
     transactions = relationship('Transaction', back_populates='user')

@@ -13,8 +13,8 @@ def home(page=1):
     products = rated_products.union_all(unrated_products)
     return render_template('views.html', products = products.paginate(page, 9))
 
-@views.route('/categories/<id>')
-@views.route('/categories/<id>/pages/<int:page>')
+@views.route('/categories/<int:id>')
+@views.route('/categories/<int:id>/pages/<int:page>')
 def get_by_category(id, page=1):
     category = Category.query.filter_by(id=id).first()
     rated_products = Product.query.join(Product.reviews).join(ProductCategory).filter_by(category_id=id).group_by(Product.id).order_by(func.avg(ProductReview.rating).desc())
