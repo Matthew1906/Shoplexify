@@ -15,7 +15,6 @@ def add_product():
     if form.validate_on_submit():
         slug = slugify(request.form.get('name'))
         find_product = Product.query.filter_by(name=request.form.get('name')).first()
-        print(find_product)
         if find_product is None:
             new_product = Product(
                 slug = slug,
@@ -30,7 +29,7 @@ def add_product():
             for category in form.categories.data:
                 new_product_category = ProductCategory(
                     product = new_product,
-                    category = Category.query.filter_by(name=category).first()
+                    category = Category.query.filter_by(id=category).first()
                 )
             db.session.add(new_product_category)
             db.session.commit()
