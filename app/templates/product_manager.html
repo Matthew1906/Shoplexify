@@ -53,7 +53,7 @@
                             <button class='btn btn-danger'>SOLD OUT!!</button>
                         {% endif %}
                     {% if purpose == 'get' and current_user.id == 1 %}
-                        <a href="{{url_for('product_manager.update_product', id=product.id)}}" class='btn btn-info'>Update Product</a>
+                        <a href="{{url_for('product_manager.update_product', id=product.slug)}}" class='btn btn-info'>Update Product</a>
                     {% endif %}
                     </div>
                 </div>
@@ -76,7 +76,7 @@
             <div class="row mt-1">
                 <div class="col">   
                     <h4>Add Review</h4> 
-                    <form action="{{url_for('product_manager.get_product', id=product.id)}}" method="post" novalidate class='col'>
+                    <form action="{{url_for('product_manager.get_product', id=product.slug)}}" method="post" novalidate class='col'>
                         {{review_form.csrf_token}}
                         <div class="form-group mb-2">
                             <label class="control-label mb-1">{{review_form.rating.label}}</label>
@@ -96,7 +96,7 @@
             {% endif %}
         {% endif %}
         {% if purpose != 'get' %} 
-        <form action="{% if purpose == 'add' %}{{url_for('product_manager.add_product')}}{% else %}{{url_for('product_manager.update_product', id=product.id)}}{% endif %}" method="post" novalidate class='col pb-3'>
+        <form action="{% if purpose == 'add' %}{{url_for('product_manager.add_product')}}{% else %}{{url_for('product_manager.update_product', id=product.slug)}}{% endif %}" method="post" novalidate class='col pb-3'>
             {{form.csrf_token}}
             <h2 class="mb-3">
                 {% if purpose == 'add' %}

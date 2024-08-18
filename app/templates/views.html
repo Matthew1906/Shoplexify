@@ -33,7 +33,7 @@
                       {{ product.categories | refactor_categories}}
                   </p>
                   <p class="card-text">{{product.price | format_currency}}</p>
-                  <a href="{{url_for('product_manager.get_product', id=product.id)}}" class="btn btn-primary">Check it out</a>
+                  <a href="{{url_for('product_manager.get_product', id=product.slug)}}" class="btn btn-primary">Check it out</a>
               </div>
           </div>
         {% endfor %}

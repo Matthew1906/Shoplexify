@@ -27,11 +27,11 @@ class ProductForm(FlaskForm):
     categories = SelectMultipleField(
         label='Categories', 
         choices=[
-            ('Automotive', 'Automotive'), ('ArtsAndCrafts','Arts and Crafts'),
-            ('Books', 'Books'), ('Clothing','Clothing'), 
-            ('Electronics', 'Electronics'), ('Food', 'Food and Beverages'),
-            ('HealthAndBeauty','Health and Beauty'),('HomeAndGarden', 'Home and Garden'), 
-            ('Office', 'Office'), ('SportsAndOutdoor','Sports & Outdoor Activities')
+            (1, 'Automotive'), (2,'Arts and Crafts'),
+            (3, 'Books'), (4,'Clothing'), 
+            (5, 'Electronics'), (6, 'Food and Beverages'),
+            (7,'Health and Beauty'),(8, 'Home and Garden'), 
+            (9, 'Office'), (10,'Sports & Outdoor Activities')
         ]
     )
     submit = SubmitField('Save Product')
