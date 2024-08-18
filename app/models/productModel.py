@@ -8,6 +8,7 @@ class Product(db.Model):
     '''Product Table'''
     __tablename__ = 'products'
     id = db.Column(db.Integer, primary_key=True)
+    slug = db.Column(db.String(255), unique=True, nullable=False)
     name = db.Column(db.String(255), unique=True, nullable=False)
     description = db.Column(db.String(5000), nullable=False)
     image_url = db.Column(db.String(5000), nullable=False)

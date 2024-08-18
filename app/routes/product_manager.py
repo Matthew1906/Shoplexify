@@ -1,6 +1,7 @@
 from flask import Blueprint, redirect, render_template, request, url_for
 from flask_login import current_user
 from sqlalchemy import select
+from slugify import slugify
 from .. import db
 from ..models import Category, Order, Product, ProductCategory, ProductReview, Transaction, TransactionDetail
 from ..utils import admin_only, CartForm, ProductForm, ReviewForm
@@ -12,9 +13,11 @@ product_manager = Blueprint('product_manager', __name__)
 def add_product():
     form = ProductForm()
     if form.validate_on_submit():
-        find_product = Product.query.filter_by(name=request.form.get('name')).first()
+        slug = slugify(request.form.get('name'))
+        find_product = Product.query.filter_by(slug=slug).first()
         if find_product is None:
             new_product = Product(
+                slug = slug,
                 name = request.form.get('name'),
                 description = request.form.get('description'),
                 image_url = request.form.get('image_url'),
@@ -33,10 +36,10 @@ def add_product():
             return redirect(url_for('views.home'))
     return render_template('product_manager.html', purpose = 'add', form = form)
 
-@product_manager.route('/products/<int:id>/update', methods=['GET', 'POST'])
+@product_manager.route('/products/<id>/update', methods=['GET', 'POST'])
 @admin_only
 def update_product(id):
-    product = Product.query.filter_by(id=id).first()
+    product = Product.query.filter_by(slug=id).first()
     form = ProductForm(
         name = product.name,
         description=product.description,
@@ -65,12 +68,12 @@ def update_product(id):
         return redirect(url_for('product_manager.get_product', id=id))
     return render_template('product_manager.html', product=product, purpose = 'update', form = form)
 
-@product_manager.route('/products/<int:id>', methods=['GET', 'POST'])
+@product_manager.route('/products/<id>', methods=['GET', 'POST'])
 def get_product(id):
     # Get product object
-    product = Product.query.filter_by(id=id).first()
+    product = Product.query.filter_by(slug=id).first()
     # Get product recommendations
-    recommendations = Product.query.filter(Product.id!=id)\
+    recommendations = Product.query.filter(Product.slug!=id)\
         .join(Product.reviews, isouter=True).join(Product.categories, isouter=True)\
             .order_by(ProductReview.rating.desc())
     if product.categories!=[]:
