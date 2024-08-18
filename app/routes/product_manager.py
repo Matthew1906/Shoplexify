@@ -14,8 +14,7 @@ def add_product():
     form = ProductForm()
     if form.validate_on_submit():
         slug = slugify(request.form.get('name'))
-        find_product = Product.query.filter_by(slug=slug).first()
-        print(find_product)
+        find_product = Product.query.filter_by(name=request.form.get('name')).first()
         if find_product is None:
             new_product = Product(
                 slug = slug,
