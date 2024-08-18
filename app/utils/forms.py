@@ -25,6 +25,7 @@ class ProductForm(FlaskForm):
     price = IntegerField('Product Price', validators=[InputRequired(), NumberRange(min=1)])
     stock = IntegerField('Stock', validators=[InputRequired(), NumberRange(min=1)])
     categories = SelectMultipleField(
+        coerce=int,
         label='Categories', 
         choices=[
             (1, 'Automotive'), (2,'Arts and Crafts'),
