@@ -85,14 +85,14 @@ def get_product(id):
         similar_products = recommendations[:9]
     similar_products.sort(key=lambda x:(sum([review.rating for review in x.reviews]) // len(x.reviews)) if len(x.reviews)!=0 else 0, reverse=True)
     # Get cart status (if the user is logged in, it will check his/her orders)
-    count_order = Order.query.filter_by(user_id = current_user.id, product_id=id).first() if current_user.is_authenticated else None
+    count_order = Order.query.filter_by(user_id = current_user.id, product_id=product.id).first() if current_user.is_authenticated else None
     cart_form = CartForm(
         count= count_order.quantity if current_user.is_authenticated and count_order!=None else 1, 
         limit=product.stock
     )
     # Check if the user is allowed to give reviews
     product_transactions = db.session.execute(
-        select(Transaction.user_id).join(Transaction.details).where(TransactionDetail.product_id==id)
+        select(Transaction.user_id).join(Transaction.details).where(TransactionDetail.product_id==product.id)
     ).scalars().all()
     review_form = ReviewForm()
     if current_user.is_authenticated and review_form.validate_on_submit():
