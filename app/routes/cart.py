@@ -30,7 +30,7 @@ def add_to_cart(user_id, product_id):
     if order.quantity == 0:
         db.session.delete(order)
     db.session.commit()
-    return redirect(url_for('product_manager.get_product', id=product_id))
+    return redirect(url_for('product_manager.get_product', id=product.slug))
 
 @cart.route('/cart/<int:user_id>/products/<int:product_id>/delete')
 @login_required
