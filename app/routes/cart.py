@@ -62,7 +62,7 @@ def clear_cart(user_id):
     '''Clear user's cart'''
     orders = Order.query.filter_by(user_id=user_id)
     for order in orders:
-        product = product.query.filter_by(id=order.product_id).first()
+        product = Product.query.filter_by(id=order.product_id).first()
         product.stock+=order.quantity
         db.session.delete(order)
     db.session.commit()
