@@ -54,14 +54,14 @@ def update_product(id):
         product.image_url = request.form.get('image_url')
         product.price = request.form.get('price')
         product.stock = request.form.get('stock')
-        categories = ProductCategory.query.filter_by(product_id=id)
+        categories = ProductCategory.query.filter_by(product_id=product.id)
         for category in categories:
             db.session.delete(category)
             db.session.commit()
         for category in form.categories.data:
             new_product_category = ProductCategory(
                 product = product,
-                category = Category.query.filter_by(name=category).first()
+                category = Category.query.filter_by(id=category).first()
             )
             db.session.add(new_product_category)
             db.session.commit()
